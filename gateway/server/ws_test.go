@@ -456,7 +456,7 @@ func TestTlsConnectionWithCertificateAuth(t *testing.T) {
 
 	srv := httptest.NewUnstartedServer(server.NewWebsocketHandler(
 		server.WithDeviceRegistry(mockRegistry),
-		server.WithOrgName("Thoughtworks")))
+		server.WithOrgName("Zynka-tech")))
 	clientCAPool := x509.NewCertPool()
 	clientCAPool.AddCert(caCert)
 	srv.TLS = &tls.Config{
@@ -520,7 +520,7 @@ func TestTlsConnectionWithCertificateAuthUntrustedRoot(t *testing.T) {
 
 	srv := httptest.NewUnstartedServer(server.NewWebsocketHandler(
 		server.WithDeviceRegistry(mockRegistry),
-		server.WithOrgName("Thoughtworks")))
+		server.WithOrgName("Zynka-tech")))
 	srv.TLS = &tls.Config{
 		ClientAuth: tls.VerifyClientCertIfGiven,
 	}
@@ -573,7 +573,7 @@ func TestTlsConnectionWithCertificateAuthExpired(t *testing.T) {
 
 	srv := httptest.NewUnstartedServer(server.NewWebsocketHandler(
 		server.WithDeviceRegistry(mockRegistry),
-		server.WithOrgName("Thoughtworks")))
+		server.WithOrgName("Zynka-tech")))
 	clientCAPool := x509.NewCertPool()
 	clientCAPool.AddCert(caCert)
 	srv.TLS = &tls.Config{
@@ -629,7 +629,7 @@ func TestTlsConnectionWithCertificateAuthExpired(t *testing.T) {
 //
 //	srv := httptest.NewUnstartedServer(server.NewWebsocketHandler(
 //		server.WithDeviceRegistry(mockRegistry),
-//		server.WithOrgName("Thoughtworks")))
+//		server.WithOrgName("Zynka-tech")))
 //	clientCAPool := x509.NewCertPool()
 //	clientCAPool.AddCert(caCert)
 //	srv.TLS = &tls.Config{
@@ -947,7 +947,7 @@ func createTestKeyPairs(t *testing.T, clientId string) (*x509.Certificate, *ecds
 		SerialNumber: caSerialNumber,
 		Subject: pkix.Name{
 			CommonName:   "Test CA",
-			Organization: []string{"Thoughtworks"},
+			Organization: []string{"Zynka-tech"},
 		},
 		KeyUsage:              x509.KeyUsageCertSign | x509.KeyUsageCRLSign,
 		BasicConstraintsValid: true,
@@ -980,7 +980,7 @@ func createTestKeyPairs(t *testing.T, clientId string) (*x509.Certificate, *ecds
 		SerialNumber: clientSerialNumber,
 		Subject: pkix.Name{
 			CommonName:   clientId,
-			Organization: []string{"Thoughtworks"},
+			Organization: []string{"Zynka-tech"},
 		},
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
 		ExtKeyUsage:           []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth},

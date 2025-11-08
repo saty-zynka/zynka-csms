@@ -126,7 +126,7 @@ func TestServerGetClientOwnedToken(t *testing.T) {
 		Type:        "RFID",
 		Uid:         "DEADBEEF",
 		ContractId:  "GBTWKTWTW000018",
-		Issuer:      "Thoughtworks",
+		Issuer:      "Zynka-tech",
 		Valid:       true,
 		CacheMode:   "ALWAYS",
 	})
@@ -151,7 +151,7 @@ func TestServerGetClientOwnedToken(t *testing.T) {
 		Data: &ocpi.Token{
 			ContractId:  "GBTWKTWTW000018",
 			CountryCode: "GB",
-			Issuer:      "Thoughtworks",
+			Issuer:      "Zynka-tech",
 			PartyId:     "TWK",
 			Type:        "RFID",
 			Uid:         "DEADBEEF",
@@ -178,7 +178,7 @@ func TestServerPutClientOwnedToken(t *testing.T) {
 	tok := ocpi.Token{
 		ContractId:  "GBTWKTWTW000018",
 		CountryCode: "GB",
-		Issuer:      "Thoughtworks",
+		Issuer:      "Zynka-tech",
 		PartyId:     "TWK",
 		Type:        "RFID",
 		Uid:         "DEADBEEF",
@@ -208,7 +208,7 @@ func TestServerPutClientOwnedToken(t *testing.T) {
 		Type:        "RFID",
 		Uid:         "DEADBEEF",
 		ContractId:  "GBTWKTWTW000018",
-		Issuer:      "Thoughtworks",
+		Issuer:      "Zynka-tech",
 		Valid:       true,
 		CacheMode:   "ALWAYS",
 	}
@@ -228,7 +228,7 @@ func TestServerPatchClientOwnedToken(t *testing.T) {
 		Type:        "RFID",
 		Uid:         "DEADBEEF",
 		ContractId:  "GBTWKTWTW000018",
-		Issuer:      "Thoughtworks",
+		Issuer:      "Zynka-tech",
 		Valid:       true,
 		CacheMode:   "ALWAYS",
 	})
@@ -284,7 +284,7 @@ func TestPostStartSession(t *testing.T) {
 		Type:        "RFID",
 		Uid:         "DEADBEEF",
 		ContractId:  "GBTWKTWTW000018",
-		Issuer:      "Thoughtworks",
+		Issuer:      "Zynka-tech",
 		Valid:       true,
 		CacheMode:   "ALWAYS",
 	})
@@ -302,7 +302,7 @@ func TestPostStartSession(t *testing.T) {
 				"country_code": "GB",
 				"party_id": "TWK",
 				"contract_id": "GBTWKTWTW000018",
-				"issuer": "Thoughtworks",
+				"issuer": "Zynka-tech",
 				"valid": true
 			},
 			"location_id": "loc001",

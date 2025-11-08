@@ -583,3 +583,68 @@ func (*noMarshalResponse) IsResponse() {}
 func (*noMarshalResponse) MarshalJSON() ([]byte, error) {
 	return nil, errors.New("expected to fail")
 }
+
+func TestRouterWithContextCancellation(t *testing.T) {
+	emitter := new(FakeEmitter)
+
+	handler := func(ctx context.Context, chargeStationId string, request ocpp.Request) (ocpp.Response, error) {
+		<-ctx.Done()
+		return nil, ctx.Err()
+	}
+
+	router := handlers.Router{
+		Emitter:  emitter,
+		SchemaFS: schemas.OcppSchemas,
+		CallRoutes: map[string]handlers.CallRoute{
+			"Heartbeat": {
+				NewRequest:     func() ocpp.Request { return new(ocpp201.HeartbeatRequestJson) },
+				RequestSchema:  "ocpp201/HeartbeatRequest.json",
+				ResponseSchema: "ocpp201/HeartbeatResponse.json",
+				Handler:        handlers.CallHandlerFunc(handler),
+			},
+		},
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	cancel()
+
+	router.Handle(ctx, "id", &heartbeatMsg)
+
+	assert.Equal(t, "id", emitter.chargeStationId)
+	assert.Equal(t, transport.MessageTypeCallError, emitter.msg.MessageType)
+	assert.Equal(t, "Heartbeat", emitter.msg.Action)
+	assert.Equal(t, transport.ErrorInternalError, emitter.msg.ErrorCode)
+}
+
+func TestRouterWithMalformedJSONPayload(t *testing.T) {
+	emitter := new(FakeEmitter)
+
+	router := handlers.Router{
+		Emitter:     emitter,
+		SchemaFS:    schemas.OcppSchemas,
+		OcppVersion: transport.OcppVersion201,
+		CallRoutes: map[string]handlers.CallRoute{
+			"Heartbeat": {
+				NewRequest:     func() ocpp.Request { return new(ocpp201.HeartbeatRequestJson) },
+				RequestSchema:  "ocpp201/HeartbeatRequest.json",
+				ResponseSchema: "ocpp201/HeartbeatResponse.json",
+				Handler: handlers201.HeartbeatHandler{
+					Clock: clock.RealClock{},
+				},
+			},
+		},
+	}
+
+	malformedMsg := transport.Message{
+		Action:         "Heartbeat",
+		MessageType:    transport.MessageTypeCall,
+		RequestPayload: []byte("{invalid json}"),
+	}
+
+	router.Handle(context.Background(), "id", &malformedMsg)
+
+	assert.Equal(t, "id", emitter.chargeStationId)
+	assert.Equal(t, transport.MessageTypeCallError, emitter.msg.MessageType)
+	assert.Equal(t, "Heartbeat", emitter.msg.Action)
+	assert.Equal(t, transport.ErrorFormatViolation, emitter.msg.ErrorCode)
+}

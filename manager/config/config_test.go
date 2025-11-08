@@ -24,7 +24,7 @@ func TestConfigure(t *testing.T) {
 		Host:    "localhost",
 		WsPort:  80,
 		WssPort: 443,
-		OrgName: "Thoughtworks",
+		OrgName: "Zynka-tech",
 	}
 
 	assert.Equal(t, wantApiSettings, settings.Api)

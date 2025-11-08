@@ -23,7 +23,7 @@ func TestAuthorizeKnownRfidCard(t *testing.T) {
 		Type:        "RFID",
 		Uid:         "MYRFIDCARD",
 		ContractId:  "GBTWK012345678V",
-		Issuer:      "Thoughtworks",
+		Issuer:      "Zynka-tech",
 		Valid:       true,
 		CacheMode:   "NEVER",
 		LastUpdated: time.Now().Format(time.RFC3339),
@@ -59,6 +59,41 @@ func TestAuthorizeWithUnknownRfidCard(t *testing.T) {
 
 	req := &types.AuthorizeJson{
 		IdTag: "MYBADRFID",
+	}
+
+	got, err := ah.HandleCall(context.Background(), "cs001", req)
+	assert.NoError(t, err)
+
+	want := &types.AuthorizeResponseJson{
+		IdTagInfo: types.AuthorizeResponseJsonIdTagInfo{
+			Status: types.AuthorizeResponseJsonIdTagInfoStatusInvalid,
+		},
+	}
+
+	assert.Equal(t, want, got)
+}
+
+func TestAuthorizeWithInvalidToken(t *testing.T) {
+	engine := inmemory.NewStore(clock.RealClock{})
+	err := engine.SetToken(context.Background(), &store.Token{
+		CountryCode: "GB",
+		PartyId:     "TWK",
+		Type:        "RFID",
+		Uid:         "MYRFIDCARD",
+		ContractId:  "GBTWK012345678V",
+		Issuer:      "Zynka-tech",
+		Valid:       false,
+		CacheMode:   "NEVER",
+		LastUpdated: time.Now().Format(time.RFC3339),
+	})
+	require.NoError(t, err)
+
+	ah := handlers.AuthorizeHandler{
+		TokenStore: engine,
+	}
+
+	req := &types.AuthorizeJson{
+		IdTag: "MYRFIDCARD",
 	}
 
 	got, err := ah.HandleCall(context.Background(), "cs001", req)

@@ -1,6 +1,6 @@
 # Design
 
-MaEVe is designed to be scalable and robust. The solution is currently split into two
+Zynka is designed to be scalable and robust. The solution is currently split into two
 components.
 
 1. The [gateway](gateway.md) is a stateful service that accepts OCPP websocket connections from charge stations.
@@ -24,7 +24,7 @@ The use of a database to store state allows the handlers themselves to be statel
 
 ## Evolution
 
-The design of MaEVe is expected to evolve and grow as it becomes more mature. It is expected that this will include
+The design of Zynka is expected to evolve and grow as it becomes more mature. It is expected that this will include
 the introduction of a device registry that will maintain all the details of the charge stations and their current state.
 This registry will be used by both the gateway component (for authorizing charge stations) and the manager component
 (for updating state etc).

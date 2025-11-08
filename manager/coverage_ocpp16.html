@@ -1,0 +1,1466 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>ocpp16: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/authorize.go (90.0%)</option>
+				
+				<option value="file1">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/boot_notification.go (83.3%)</option>
+				
+				<option value="file2">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/cancel_reservation_result.go (100.0%)</option>
+				
+				<option value="file3">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/change_configuration_result.go (90.5%)</option>
+				
+				<option value="file4">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/data_transfer.go (95.5%)</option>
+				
+				<option value="file5">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/data_transfer_result.go (100.0%)</option>
+				
+				<option value="file6">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/diagnostics_status_notification.go (100.0%)</option>
+				
+				<option value="file7">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/firmware_status_notification.go (100.0%)</option>
+				
+				<option value="file8">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/heartbeat.go (100.0%)</option>
+				
+				<option value="file9">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/meter_values.go (0.0%)</option>
+				
+				<option value="file10">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/remote_start_transaction_result.go (100.0%)</option>
+				
+				<option value="file11">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/reserve_now_result.go (100.0%)</option>
+				
+				<option value="file12">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/routing.go (21.4%)</option>
+				
+				<option value="file13">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/security_event_notification.go (83.3%)</option>
+				
+				<option value="file14">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/start_transaction.go (91.3%)</option>
+				
+				<option value="file15">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/status_notification.go (100.0%)</option>
+				
+				<option value="file16">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/stop_transaction.go (92.8%)</option>
+				
+				<option value="file17">github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16/trigger_message_result.go (100.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">not covered</span>
+				<span class="cov8">covered</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "github.com/zynka-tech/zynka-csms/manager/store"
+)
+
+type AuthorizeHandler struct {
+        TokenStore store.TokenStore
+}
+
+func (a AuthorizeHandler) HandleCall(ctx context.Context, chargeStationId string, request ocpp.Request) (ocpp.Response, error) <span class="cov8" title="1">{
+        span := trace.SpanFromContext(ctx)
+
+        req := request.(*types.AuthorizeJson)
+
+        status := types.AuthorizeResponseJsonIdTagInfoStatusInvalid
+        tok, err := a.TokenStore.LookupToken(ctx, req.IdTag)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov8" title="1">if tok != nil &amp;&amp; tok.Valid </span><span class="cov8" title="1">{
+                status = types.AuthorizeResponseJsonIdTagInfoStatusAccepted
+        }</span>
+
+        <span class="cov8" title="1">span.SetAttributes(
+                attribute.String("request.status", string(status)),
+                attribute.String("authorize.token", req.IdTag))
+
+        return &amp;types.AuthorizeResponseJson{
+                IdTagInfo: types.AuthorizeResponseJsonIdTagInfo{
+                        Status: status,
+                },
+        }, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "github.com/zynka-tech/zynka-csms/manager/store"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+        "time"
+
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "k8s.io/utils/clock"
+)
+
+type BootNotificationHandler struct {
+        Clock               clock.PassiveClock
+        RuntimeDetailsStore store.ChargeStationRuntimeDetailsStore
+        SettingsStore       store.ChargeStationSettingsStore
+        HeartbeatInterval   int
+}
+
+func (b BootNotificationHandler) HandleCall(ctx context.Context, chargeStationId string, request ocpp.Request) (ocpp.Response, error) <span class="cov8" title="1">{
+        span := trace.SpanFromContext(ctx)
+
+        req := request.(*types.BootNotificationJson)
+
+        span.SetAttributes(
+                attribute.String("request.status", string(types.BootNotificationResponseJsonStatusAccepted)),
+                attribute.String("boot.vendor", req.ChargePointVendor),
+                attribute.String("boot.model", req.ChargePointModel))
+
+        if req.ChargePointSerialNumber != nil </span><span class="cov8" title="1">{
+                span.SetAttributes(attribute.String("boot.serial", *req.ChargePointSerialNumber))
+        }</span>
+        <span class="cov8" title="1">if req.FirmwareVersion != nil </span><span class="cov0" title="0">{
+                span.SetAttributes(attribute.String("boot.firmware", *req.FirmwareVersion))
+        }</span>
+
+        <span class="cov8" title="1">err := b.RuntimeDetailsStore.SetChargeStationRuntimeDetails(ctx, chargeStationId, &amp;store.ChargeStationRuntimeDetails{
+                OcppVersion: "1.6",
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        // remove any reboot required settings
+        <span class="cov8" title="1">settings, err := b.SettingsStore.LookupChargeStationSettings(ctx, chargeStationId)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov8" title="1">if settings != nil &amp;&amp; settings.Settings != nil </span><span class="cov8" title="1">{
+                updated := false
+                for _, setting := range settings.Settings </span><span class="cov8" title="1">{
+                        if setting.Status == store.ChargeStationSettingStatusRebootRequired </span><span class="cov8" title="1">{
+                                setting.Status = store.ChargeStationSettingStatusAccepted
+                                updated = true
+                        }</span>
+                }
+
+                <span class="cov8" title="1">if updated </span><span class="cov8" title="1">{
+                        err = b.SettingsStore.UpdateChargeStationSettings(ctx, chargeStationId, settings)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return nil, err
+                        }</span>
+                }
+        }
+
+        <span class="cov8" title="1">return &amp;types.BootNotificationResponseJson{
+                CurrentTime: b.Clock.Now().Format(time.RFC3339),
+                Interval:    b.HeartbeatInterval,
+                Status:      types.BootNotificationResponseJsonStatusAccepted,
+        }, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+)
+
+type CancelReservationResultHandler struct{}
+
+func (h CancelReservationResultHandler) HandleCallResult(ctx context.Context, chargeStationId string, request ocpp.Request, response ocpp.Response, state any) error <span class="cov8" title="1">{
+        req := request.(*types.CancelReservationJson)
+        resp := response.(*types.CancelReservationResponseJson)
+
+        span := trace.SpanFromContext(ctx)
+
+        span.SetAttributes(
+                attribute.Int("cancel_reservation.reservation_id", req.ReservationId),
+                attribute.String("cancel_reservation.status", string(resp.Status)))
+
+        return nil
+}</span>
+
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "fmt"
+        "github.com/zynka-tech/zynka-csms/manager/handlers"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "github.com/zynka-tech/zynka-csms/manager/store"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+)
+
+type ChangeConfigurationResultHandler struct {
+        SettingsStore store.ChargeStationSettingsStore
+        CallMaker     handlers.CallMaker
+}
+
+func (c ChangeConfigurationResultHandler) HandleCallResult(ctx context.Context, chargeStationId string, request ocpp.Request, response ocpp.Response, state any) error <span class="cov8" title="1">{
+        req := request.(*ocpp16.ChangeConfigurationJson)
+        resp := response.(*ocpp16.ChangeConfigurationResponseJson)
+
+        span := trace.SpanFromContext(ctx)
+        span.SetAttributes(
+                attribute.String("setting.key", req.Key),
+                attribute.String("setting.value", req.Value),
+                attribute.String("setting.status", string(resp.Status)))
+
+        err := c.SettingsStore.UpdateChargeStationSettings(ctx, chargeStationId, &amp;store.ChargeStationSettings{
+                ChargeStationId: chargeStationId,
+                Settings: map[string]*store.ChargeStationSetting{
+                        req.Key: {
+                                Value:  req.Value,
+                                Status: store.ChargeStationSettingStatus(resp.Status),
+                        },
+                },
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("update charge station settings: %w", err)
+        }</span>
+
+        <span class="cov8" title="1">settings, err := c.SettingsStore.LookupChargeStationSettings(ctx, chargeStationId)
+        if err != nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("lookup charge station settings: %w", err)
+        }</span>
+
+        // check if all settings are done and if so reboot the charge station if necessary
+        <span class="cov8" title="1">allDone := true
+        rebootRequired := false
+        for _, setting := range settings.Settings </span><span class="cov8" title="1">{
+                if setting.Status == store.ChargeStationSettingStatusRebootRequired </span><span class="cov8" title="1">{
+                        rebootRequired = true
+                }</span>
+                <span class="cov8" title="1">if setting.Status == store.ChargeStationSettingStatusPending </span><span class="cov8" title="1">{
+                        allDone = false
+                        break</span>
+                }
+        }
+        <span class="cov8" title="1">if allDone &amp;&amp; rebootRequired </span><span class="cov8" title="1">{
+                err = c.CallMaker.Send(ctx, chargeStationId, &amp;ocpp16.TriggerMessageJson{
+                        RequestedMessage: ocpp16.TriggerMessageJsonRequestedMessageBootNotification,
+                })
+        }</span>
+
+        <span class="cov8" title="1">return err</span>
+}
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "encoding/json"
+        "fmt"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+        "io/fs"
+
+        "github.com/zynka-tech/zynka-csms/manager/handlers"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "github.com/zynka-tech/zynka-csms/manager/schemas"
+)
+
+type DataTransferHandler struct {
+        CallRoutes map[string]map[string]handlers.CallRoute
+        SchemaFS   fs.FS
+}
+
+func (d DataTransferHandler) HandleCall(ctx context.Context, chargeStationId string, request ocpp.Request) (ocpp.Response, error) <span class="cov8" title="1">{
+        span := trace.SpanFromContext(ctx)
+
+        req := request.(*types.DataTransferJson)
+
+        messageId := ""
+        if req.MessageId != nil </span><span class="cov8" title="1">{
+                messageId = *req.MessageId
+        }</span>
+
+        <span class="cov8" title="1">span.SetAttributes(attribute.String("datatransfer.vendor_id", req.VendorId))
+        if messageId != "" </span><span class="cov8" title="1">{
+                span.SetAttributes(attribute.String("datatransfer.message_id", messageId))
+        }</span>
+
+        <span class="cov8" title="1">span.SetAttributes(attribute.String("datatransfer.vendor_id", req.VendorId))
+        if messageId != "" </span><span class="cov8" title="1">{
+                span.SetAttributes(attribute.String("datatransfer.message_id", messageId))
+        }</span>
+
+        <span class="cov8" title="1">vendorMap, ok := d.CallRoutes[req.VendorId]
+        if !ok </span><span class="cov8" title="1">{
+                span.SetAttributes(attribute.String("datatransfer.status", string(types.DataTransferResponseJsonStatusUnknownVendorId)))
+                return &amp;types.DataTransferResponseJson{
+                        Status: types.DataTransferResponseJsonStatusUnknownVendorId,
+                }, nil
+        }</span>
+        <span class="cov8" title="1">route, ok := vendorMap[messageId]
+        if !ok </span><span class="cov8" title="1">{
+                span.SetAttributes(attribute.String("datatransfer.status", string(types.DataTransferResponseJsonStatusUnknownMessageId)))
+                return &amp;types.DataTransferResponseJson{
+                        Status: types.DataTransferResponseJsonStatusUnknownMessageId,
+                }, nil
+        }</span>
+
+        <span class="cov8" title="1">var dataTransferRequest ocpp.Request
+        if req.Data != nil </span><span class="cov8" title="1">{
+                data := []byte(*req.Data)
+                err := schemas.Validate(data, d.SchemaFS, route.RequestSchema)
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, fmt.Errorf("validating %s:%s data transfer data: %w", req.VendorId, messageId, err)
+                }</span>
+                <span class="cov8" title="1">dataTransferRequest = route.NewRequest()
+                err = json.Unmarshal(data, &amp;dataTransferRequest)
+                if err != nil </span><span class="cov8" title="1">{
+                        return nil, fmt.Errorf("unmarshalling %s:%s data transfer data: %w", req.VendorId, messageId, err)
+                }</span>
+        }
+
+        <span class="cov8" title="1">dataTransferResponse, err := route.Handler.HandleCall(ctx, chargeStationId, dataTransferRequest)
+        if err != nil </span><span class="cov8" title="1">{
+                return nil, err
+        }</span>
+        <span class="cov8" title="1">var dataTransferResponseData *string
+        if dataTransferResponse != nil </span><span class="cov8" title="1">{
+                b, err := json.Marshal(dataTransferResponse)
+                if err != nil </span><span class="cov8" title="1">{
+                        return nil, fmt.Errorf("marshalling %s:%s data transfer data: %w", req.VendorId, messageId, err)
+                }</span>
+                <span class="cov8" title="1">err = schemas.Validate(b, d.SchemaFS, route.ResponseSchema)
+                if err != nil </span><span class="cov0" title="0">{
+                        span.SetAttributes(attribute.String("datatransfer.invalid_response", err.Error()))
+                }</span>
+                <span class="cov8" title="1">dataTransferResponseString := string(b)
+                dataTransferResponseData = &amp;dataTransferResponseString</span>
+        }
+
+        <span class="cov8" title="1">span.SetAttributes(attribute.String("datatransfer.status", string(types.DataTransferResponseJsonStatusAccepted)))
+
+        return &amp;types.DataTransferResponseJson{
+                Status: types.DataTransferResponseJsonStatusAccepted,
+                Data:   dataTransferResponseData,
+        }, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file5" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "encoding/json"
+        "fmt"
+        "io/fs"
+
+        "github.com/zynka-tech/zynka-csms/manager/handlers"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "github.com/zynka-tech/zynka-csms/manager/schemas"
+        "golang.org/x/exp/slog"
+)
+
+type DataTransferResultHandler struct {
+        SchemaFS         fs.FS
+        CallResultRoutes map[string]map[string]handlers.CallResultRoute
+}
+
+func (d DataTransferResultHandler) HandleCallResult(ctx context.Context, chargeStationId string, request ocpp.Request, response ocpp.Response, state any) error <span class="cov8" title="1">{
+        req := request.(*types.DataTransferJson)
+        resp := response.(*types.DataTransferResponseJson)
+
+        messageId := ""
+        if req.MessageId != nil </span><span class="cov8" title="1">{
+                messageId = *req.MessageId
+        }</span>
+        <span class="cov8" title="1">slog.Info("data transfer result",
+                slog.String("vendorId", req.VendorId), slog.String("messageId", messageId))
+
+        vendorMap, ok := d.CallResultRoutes[req.VendorId]
+        if !ok </span><span class="cov8" title="1">{
+                return fmt.Errorf("unknown data transfer result vendor: %s", req.VendorId)
+        }</span>
+        <span class="cov8" title="1">route, ok := vendorMap[messageId]
+        if !ok </span><span class="cov8" title="1">{
+                return fmt.Errorf("unknown data transfer result message id: %s", messageId)
+        }</span>
+
+        <span class="cov8" title="1">var dataTransferRequest ocpp.Request
+        if req.Data != nil </span><span class="cov8" title="1">{
+                data := []byte(*req.Data)
+                err := schemas.Validate(data, d.SchemaFS, route.RequestSchema)
+                if err != nil </span><span class="cov8" title="1">{
+                        return fmt.Errorf("validating %s:%s data transfer result request data: %w", req.VendorId, messageId, err)
+                }</span>
+                <span class="cov8" title="1">dataTransferRequest = route.NewRequest()
+                err = json.Unmarshal(data, &amp;dataTransferRequest)
+                if err != nil </span><span class="cov8" title="1">{
+                        return fmt.Errorf("unmarshalling %s:%s data transfer request data: %w", req.VendorId, messageId, err)
+                }</span>
+        }
+
+        <span class="cov8" title="1">var dataTransferResponse ocpp.Response
+        if resp.Data != nil </span><span class="cov8" title="1">{
+                data := []byte(*resp.Data)
+                err := schemas.Validate(data, d.SchemaFS, route.ResponseSchema)
+                if err != nil </span><span class="cov8" title="1">{
+                        return fmt.Errorf("validating %s:%s data transfer result response data: %w", req.VendorId, messageId, err)
+                }</span>
+                <span class="cov8" title="1">dataTransferResponse = route.NewResponse()
+                err = json.Unmarshal(data, &amp;dataTransferResponse)
+                if err != nil </span><span class="cov8" title="1">{
+                        return fmt.Errorf("unmarshalling %s:%s data transfer response data: %w", req.VendorId, messageId, err)
+                }</span>
+        }
+
+        <span class="cov8" title="1">return route.Handler.HandleCallResult(ctx, chargeStationId, dataTransferRequest, dataTransferResponse, state)</span>
+}
+</pre>
+		
+		<pre class="file" id="file6" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+)
+
+type DiagnosticsStatusNotificationHandler struct{}
+
+func (h DiagnosticsStatusNotificationHandler) HandleCall(ctx context.Context, chargeStationId string, request ocpp.Request) (response ocpp.Response, err error) <span class="cov8" title="1">{
+        req := request.(*types.DiagnosticsStatusNotificationJson)
+
+        span := trace.SpanFromContext(ctx)
+
+        span.SetAttributes(attribute.String("diagnostics_status.status", string(req.Status)))
+
+        return &amp;types.DiagnosticsStatusNotificationResponseJson{}, nil
+}</span>
+
+</pre>
+		
+		<pre class="file" id="file7" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+)
+
+type FirmwareStatusNotificationHandler struct{}
+
+func (h FirmwareStatusNotificationHandler) HandleCall(ctx context.Context, chargeStationId string, request ocpp.Request) (response ocpp.Response, err error) <span class="cov8" title="1">{
+        req := request.(*types.FirmwareStatusNotificationJson)
+
+        span := trace.SpanFromContext(ctx)
+
+        span.SetAttributes(attribute.String("firmware_status.status", string(req.Status)))
+
+        return &amp;types.FirmwareStatusNotificationResponseJson{}, nil
+}</span>
+
+</pre>
+		
+		<pre class="file" id="file8" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "time"
+
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "k8s.io/utils/clock"
+)
+
+type HeartbeatHandler struct {
+        Clock clock.PassiveClock
+}
+
+func (h HeartbeatHandler) HandleCall(ctx context.Context, chargeStationId string, request ocpp.Request) (ocpp.Response, error) <span class="cov8" title="1">{
+        return &amp;types.HeartbeatResponseJson{
+                CurrentTime: h.Clock.Now().Format(time.RFC3339),
+        }, nil
+}</span>
+</pre>
+		
+		<pre class="file" id="file9" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "github.com/zynka-tech/zynka-csms/manager/store"
+)
+
+type MeterValuesHandler struct {
+        TransactionStore store.TransactionStore
+}
+
+func (m MeterValuesHandler) HandleCall(ctx context.Context, chargeStationId string, request ocpp.Request) (response ocpp.Response, err error) <span class="cov0" title="0">{
+        // TODO: store in transaction store
+
+        return &amp;types.MeterValuesResponseJson{}, nil
+}</span>
+</pre>
+		
+		<pre class="file" id="file10" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+)
+
+type RemoteStartTransactionResultHandler struct{}
+
+func (h RemoteStartTransactionResultHandler) HandleCallResult(ctx context.Context, chargeStationId string, request ocpp.Request, response ocpp.Response, state any) error <span class="cov8" title="1">{
+        req := request.(*types.RemoteStartTransactionJson)
+        resp := response.(*types.RemoteStartTransactionResponseJson)
+
+        span := trace.SpanFromContext(ctx)
+
+        span.SetAttributes(
+                attribute.String("remote_start.id_tag", req.IdTag),
+                attribute.String("remote_start.status", string(resp.Status)))
+
+        if req.ConnectorId != nil </span><span class="cov8" title="1">{
+                span.SetAttributes(attribute.Int("remote_start.connector_id", *req.ConnectorId))
+        }</span>
+
+        <span class="cov8" title="1">return nil</span>
+}
+
+</pre>
+		
+		<pre class="file" id="file11" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+)
+
+type ReserveNowResultHandler struct{}
+
+func (h ReserveNowResultHandler) HandleCallResult(ctx context.Context, chargeStationId string, request ocpp.Request, response ocpp.Response, state any) error <span class="cov8" title="1">{
+        req := request.(*types.ReserveNowJson)
+        resp := response.(*types.ReserveNowResponseJson)
+
+        span := trace.SpanFromContext(ctx)
+
+        span.SetAttributes(
+                attribute.Int("reserve_now.reservation_id", req.ReservationId),
+                attribute.String("reserve_now.status", string(resp.Status)))
+
+        return nil
+}</span>
+
+</pre>
+		
+		<pre class="file" id="file12" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "encoding/json"
+        "fmt"
+        "github.com/google/uuid"
+        "github.com/zynka-tech/zynka-csms/manager/handlers"
+        handlersHasToBe "github.com/zynka-tech/zynka-csms/manager/handlers/has2be"
+        handlers201 "github.com/zynka-tech/zynka-csms/manager/handlers/ocpp201"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp/has2be"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
+        "github.com/zynka-tech/zynka-csms/manager/services"
+        "github.com/zynka-tech/zynka-csms/manager/store"
+        "github.com/zynka-tech/zynka-csms/manager/transport"
+        "io/fs"
+        "k8s.io/utils/clock"
+        "reflect"
+        "time"
+)
+
+func NewRouter(emitter transport.Emitter,
+        clk clock.PassiveClock,
+        engine store.Engine,
+        certValidationService services.CertificateValidationService,
+        chargeStationCertProvider services.ChargeStationCertificateProvider,
+        contractCertProvider services.ContractCertificateProvider,
+        heartbeatInterval time.Duration,
+        schemaFS fs.FS) transport.MessageHandler <span class="cov0" title="0">{
+
+        standardCallMaker := NewCallMaker(emitter)
+
+        return &amp;handlers.Router{
+                Emitter:     emitter,
+                SchemaFS:    schemaFS,
+                OcppVersion: transport.OcppVersion16,
+                CallRoutes: map[string]handlers.CallRoute{
+                        "BootNotification": {
+                                NewRequest:     func() ocpp.Request </span><span class="cov0" title="0">{ return new(ocpp16.BootNotificationJson) }</span>,
+                                RequestSchema:  "ocpp16/BootNotification.json",
+                                ResponseSchema: "ocpp16/BootNotificationResponse.json",
+                                Handler: BootNotificationHandler{
+                                        Clock:               clk,
+                                        RuntimeDetailsStore: engine,
+                                        SettingsStore:       engine,
+                                        HeartbeatInterval:   int(heartbeatInterval.Seconds()),
+                                },
+                        },
+                        "Heartbeat": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.HeartbeatJson) }</span>,
+                                RequestSchema:  "ocpp16/Heartbeat.json",
+                                ResponseSchema: "ocpp16/HeartbeatResponse.json",
+                                Handler: HeartbeatHandler{
+                                        Clock: clk,
+                                },
+                        },
+                        "StatusNotification": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.StatusNotificationJson) }</span>,
+                                RequestSchema:  "ocpp16/StatusNotification.json",
+                                ResponseSchema: "ocpp16/StatusNotificationResponse.json",
+                                Handler:        handlers.CallHandlerFunc(StatusNotificationHandler),
+                        },
+                        "Authorize": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.AuthorizeJson) }</span>,
+                                RequestSchema:  "ocpp16/Authorize.json",
+                                ResponseSchema: "ocpp16/AuthorizeResponse.json",
+                                Handler: AuthorizeHandler{
+                                        TokenStore: engine,
+                                },
+                        },
+                        "StartTransaction": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.StartTransactionJson) }</span>,
+                                RequestSchema:  "ocpp16/StartTransaction.json",
+                                ResponseSchema: "ocpp16/StartTransactionResponse.json",
+                                Handler: StartTransactionHandler{
+                                        Clock:            clk,
+                                        TokenStore:       engine,
+                                        TransactionStore: engine,
+                                },
+                        },
+                        "StopTransaction": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.StopTransactionJson) }</span>,
+                                RequestSchema:  "ocpp16/StopTransaction.json",
+                                ResponseSchema: "ocpp16/StopTransactionResponse.json",
+                                Handler: StopTransactionHandler{
+                                        Clock:            clk,
+                                        TokenStore:       engine,
+                                        TransactionStore: engine,
+                                },
+                        },
+                        "MeterValues": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.MeterValuesJson) }</span>,
+                                RequestSchema:  "ocpp16/MeterValues.json",
+                                ResponseSchema: "ocpp16/MeterValuesResponse.json",
+                                Handler: MeterValuesHandler{
+                                        TransactionStore: engine,
+                                },
+                        },
+                        "SecurityEventNotification": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.SecurityEventNotificationJson) }</span>,
+                                RequestSchema:  "ocpp16/SecurityEventNotification.json",
+                                ResponseSchema: "ocpp16/SecurityEventNotificationResponse.json",
+                                Handler:        SecurityEventNotificationHandler{},
+                        },
+                        "FirmwareStatusNotification": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.FirmwareStatusNotificationJson) }</span>,
+                                RequestSchema:  "ocpp16/FirmwareStatusNotification.json",
+                                ResponseSchema: "ocpp16/FirmwareStatusNotificationResponse.json",
+                                Handler:        FirmwareStatusNotificationHandler{},
+                        },
+                        "DiagnosticsStatusNotification": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.DiagnosticsStatusNotificationJson) }</span>,
+                                RequestSchema:  "ocpp16/DiagnosticsStatusNotification.json",
+                                ResponseSchema: "ocpp16/DiagnosticsStatusNotificationResponse.json",
+                                Handler:        DiagnosticsStatusNotificationHandler{},
+                        },
+                        "DataTransfer": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.DataTransferJson) }</span>,
+                                RequestSchema:  "ocpp16/DataTransfer.json",
+                                ResponseSchema: "ocpp16/DataTransferResponse.json",
+                                Handler: DataTransferHandler{
+                                        SchemaFS: schemaFS,
+                                        CallRoutes: map[string]map[string]handlers.CallRoute{
+                                                "org.openchargealliance.iso15118pnc": {
+                                                        "Authorize": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp201.AuthorizeRequestJson) }</span>,
+                                                                RequestSchema:  "ocpp201/AuthorizeRequest.json",
+                                                                ResponseSchema: "ocpp201/AuthorizeResponse.json",
+                                                                Handler: handlers201.AuthorizeHandler{
+                                                                        TokenAuthService: &amp;services.OcppTokenAuthService{
+                                                                                Clock:      clk,
+                                                                                TokenStore: engine,
+                                                                        },
+                                                                        CertificateValidationService: certValidationService,
+                                                                },
+                                                        },
+                                                        "GetCertificateStatus": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp201.GetCertificateStatusRequestJson) }</span>,
+                                                                RequestSchema:  "ocpp201/GetCertificateStatusRequest.json",
+                                                                ResponseSchema: "ocpp201/GetCertificateStatusResponse.json",
+                                                                Handler: handlers201.GetCertificateStatusHandler{
+                                                                        CertificateValidationService: certValidationService,
+                                                                },
+                                                        },
+                                                        "SignCertificate": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp201.SignCertificateRequestJson) }</span>,
+                                                                RequestSchema:  "ocpp201/SignCertificateRequest.json",
+                                                                ResponseSchema: "ocpp201/SignCertificateResponse.json",
+                                                                Handler: handlers201.SignCertificateHandler{
+                                                                        ChargeStationCertificateProvider: chargeStationCertProvider,
+                                                                        Store:                            engine,
+                                                                },
+                                                        },
+                                                        "Get15118EVCertificate": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp201.Get15118EVCertificateRequestJson) }</span>,
+                                                                RequestSchema:  "ocpp201/Get15118EVCertificateRequest.json",
+                                                                ResponseSchema: "ocpp201/Get15118EVCertificateResponse.json",
+                                                                Handler: handlers201.Get15118EvCertificateHandler{
+                                                                        ContractCertificateProvider: contractCertProvider,
+                                                                },
+                                                        },
+                                                },
+                                                "iso15118": { // has2be extensions
+                                                        "Authorize": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(has2be.AuthorizeRequestJson) }</span>,
+                                                                RequestSchema:  "has2be/AuthorizeRequest.json",
+                                                                ResponseSchema: "has2be/AuthorizeResponse.json",
+                                                                Handler: handlersHasToBe.AuthorizeHandler{
+                                                                        Handler201: handlers201.AuthorizeHandler{
+                                                                                TokenAuthService: &amp;services.OcppTokenAuthService{
+                                                                                        Clock:      clk,
+                                                                                        TokenStore: engine,
+                                                                                },
+                                                                                CertificateValidationService: certValidationService,
+                                                                        },
+                                                                },
+                                                        },
+                                                        "GetCertificateStatus": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(has2be.GetCertificateStatusRequestJson) }</span>,
+                                                                RequestSchema:  "has2be/GetCertificateStatusRequest.json",
+                                                                ResponseSchema: "has2be/GetCertificateStatusResponse.json",
+                                                                Handler: handlersHasToBe.GetCertificateStatusHandler{
+                                                                        Handler201: handlers201.GetCertificateStatusHandler{
+                                                                                CertificateValidationService: certValidationService,
+                                                                        },
+                                                                },
+                                                        },
+                                                        "Get15118EVCertificate": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(has2be.Get15118EVCertificateRequestJson) }</span>,
+                                                                RequestSchema:  "has2be/Get15118EVCertificateRequest.json",
+                                                                ResponseSchema: "has2be/Get15118EVCertificateResponse.json",
+                                                                Handler: handlersHasToBe.Get15118EvCertificateHandler{
+                                                                        Handler201: handlers201.Get15118EvCertificateHandler{
+                                                                                ContractCertificateProvider: contractCertProvider,
+                                                                        },
+                                                                },
+                                                        },
+                                                        "SignCertificate": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(has2be.SignCertificateRequestJson) }</span>,
+                                                                RequestSchema:  "has2be/SignCertificateRequestJson.json",
+                                                                ResponseSchema: "has2be/SignCertificateRequestJson.json",
+                                                                Handler: handlersHasToBe.SignCertificateHandler{
+                                                                        Handler201: handlers201.SignCertificateHandler{
+                                                                                ChargeStationCertificateProvider: chargeStationCertProvider,
+                                                                                Store:                            engine,
+                                                                        },
+                                                                },
+                                                        },
+                                                },
+                                        },
+                                },
+                        },
+                },
+                CallResultRoutes: map[string]handlers.CallResultRoute{
+                        "DataTransfer": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.DataTransferJson) }</span>,
+                                NewResponse:    func() ocpp.Response <span class="cov0" title="0">{ return new(ocpp16.DataTransferResponseJson) }</span>,
+                                RequestSchema:  "ocpp16/DataTransfer.json",
+                                ResponseSchema: "ocpp16/DataTransferResponse.json",
+                                Handler: DataTransferResultHandler{
+                                        SchemaFS: schemaFS,
+                                        CallResultRoutes: map[string]map[string]handlers.CallResultRoute{
+                                                "org.openchargealliance.iso15118pnc": {
+                                                        "CertificateSigned": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp201.CertificateSignedRequestJson) }</span>,
+                                                                NewResponse:    func() ocpp.Response <span class="cov0" title="0">{ return new(ocpp201.CertificateSignedResponseJson) }</span>,
+                                                                RequestSchema:  "ocpp201/CertificateSignedRequest.json",
+                                                                ResponseSchema: "ocpp201/CertificateSignedResponse.json",
+                                                                Handler: handlers201.CertificateSignedResultHandler{
+                                                                        Store: engine,
+                                                                },
+                                                        },
+                                                        "InstallCertificate": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp201.InstallCertificateRequestJson) }</span>,
+                                                                NewResponse:    func() ocpp.Response <span class="cov0" title="0">{ return new(ocpp201.InstallCertificateResponseJson) }</span>,
+                                                                RequestSchema:  "ocpp201/InstallCertificateRequest.json",
+                                                                ResponseSchema: "ocpp201/InstallCertificateResponse.json",
+                                                                Handler: handlers201.InstallCertificateResultHandler{
+                                                                        Store: engine,
+                                                                },
+                                                        },
+                                                        "TriggerMessage": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp201.TriggerMessageRequestJson) }</span>,
+                                                                NewResponse:    func() ocpp.Response <span class="cov0" title="0">{ return new(ocpp201.TriggerMessageResponseJson) }</span>,
+                                                                RequestSchema:  "ocpp201/TriggerMessageRequest.json",
+                                                                ResponseSchema: "ocpp201/TriggerMessageResponse.json",
+                                                                Handler: handlers201.TriggerMessageResultHandler{
+                                                                        Store: engine,
+                                                                },
+                                                        },
+                                                },
+                                                "iso15118": { // has2be extensions
+                                                        "CertificateSigned": {
+                                                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(has2be.CertificateSignedRequestJson) }</span>,
+                                                                NewResponse:    func() ocpp.Response <span class="cov0" title="0">{ return new(has2be.CertificateSignedResponseJson) }</span>,
+                                                                RequestSchema:  "has2be/CertificateSignedRequest.json",
+                                                                ResponseSchema: "has2be/CertificateSignedResponse.json",
+                                                                Handler:        handlersHasToBe.CertificateSignedResultHandler{},
+                                                        },
+                                                },
+                                        },
+                                },
+                        },
+                        "ChangeConfiguration": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.ChangeConfigurationJson) }</span>,
+                                NewResponse:    func() ocpp.Response <span class="cov0" title="0">{ return new(ocpp16.ChangeConfigurationResponseJson) }</span>,
+                                RequestSchema:  "ocpp16/ChangeConfiguration.json",
+                                ResponseSchema: "ocpp16/ChangeConfigurationResponse.json",
+                                Handler: ChangeConfigurationResultHandler{
+                                        SettingsStore: engine,
+                                        CallMaker:     standardCallMaker,
+                                },
+                        },
+                        "TriggerMessage": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.TriggerMessageJson) }</span>,
+                                NewResponse:    func() ocpp.Response <span class="cov0" title="0">{ return new(ocpp16.TriggerMessageResponseJson) }</span>,
+                                RequestSchema:  "ocpp16/TriggerMessage.json",
+                                ResponseSchema: "ocpp16/TriggerMessageResponse.json",
+                                Handler:        TriggerMessageResultHandler{},
+                        },
+                        "RemoteStartTransaction": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.RemoteStartTransactionJson) }</span>,
+                                NewResponse:    func() ocpp.Response <span class="cov0" title="0">{ return new(ocpp16.RemoteStartTransactionResponseJson) }</span>,
+                                RequestSchema:  "ocpp16/RemoteStartTransaction.json",
+                                ResponseSchema: "ocpp16/RemoteStartTransactionResponse.json",
+                                Handler:        RemoteStartTransactionResultHandler{},
+                        },
+                        "ReserveNow": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.ReserveNowJson) }</span>,
+                                NewResponse:    func() ocpp.Response <span class="cov0" title="0">{ return new(ocpp16.ReserveNowResponseJson) }</span>,
+                                RequestSchema:  "ocpp16/ReserveNow.json",
+                                ResponseSchema: "ocpp16/ReserveNowResponse.json",
+                                Handler:        ReserveNowResultHandler{},
+                        },
+                        "CancelReservation": {
+                                NewRequest:     func() ocpp.Request <span class="cov0" title="0">{ return new(ocpp16.CancelReservationJson) }</span>,
+                                NewResponse:    func() ocpp.Response <span class="cov0" title="0">{ return new(ocpp16.CancelReservationResponseJson) }</span>,
+                                RequestSchema:  "ocpp16/CancelReservation.json",
+                                ResponseSchema: "ocpp16/CancelReservationResponse.json",
+                                Handler:        CancelReservationResultHandler{},
+                        },
+                },
+        }
+}
+
+func NewCallMaker(e transport.Emitter) *handlers.OcppCallMaker <span class="cov0" title="0">{
+        return &amp;handlers.OcppCallMaker{
+                Emitter:     e,
+                OcppVersion: transport.OcppVersion16,
+                Actions: map[reflect.Type]string{
+                        reflect.TypeOf(&amp;ocpp16.ChangeConfigurationJson{}):    "ChangeConfiguration",
+                        reflect.TypeOf(&amp;ocpp16.TriggerMessageJson{}):         "TriggerMessage",
+                        reflect.TypeOf(&amp;ocpp16.RemoteStartTransactionJson{}): "RemoteStartTransaction",
+                        reflect.TypeOf(&amp;ocpp16.ReserveNowJson{}):             "ReserveNow",
+                        reflect.TypeOf(&amp;ocpp16.CancelReservationJson{}):      "CancelReservation",
+                },
+        }
+}</span>
+
+type DataTransferAction struct {
+        VendorId  string
+        MessageId string
+}
+
+type DataTransferCallMaker struct {
+        e       transport.Emitter
+        actions map[reflect.Type]DataTransferAction
+}
+
+func NewDataTransferCallMaker(e transport.Emitter) *DataTransferCallMaker <span class="cov8" title="1">{
+        return &amp;DataTransferCallMaker{
+                e: e,
+                actions: map[reflect.Type]DataTransferAction{
+                        reflect.TypeOf(&amp;ocpp201.CertificateSignedRequestJson{}): {
+                                VendorId:  "org.openchargealliance.iso15118pnc",
+                                MessageId: "CertificateSigned",
+                        },
+                        reflect.TypeOf(&amp;ocpp201.InstallCertificateRequestJson{}): {
+                                VendorId:  "org.openchargealliance.iso15118pnc",
+                                MessageId: "InstallCertificate",
+                        },
+                        reflect.TypeOf(&amp;ocpp201.TriggerMessageRequestJson{}): {
+                                VendorId:  "org.openchargealliance.iso15118pnc",
+                                MessageId: "TriggerMessage",
+                        },
+                },
+        }
+}</span>
+
+func (d DataTransferCallMaker) Send(ctx context.Context, chargeStationId string, request ocpp.Request) error <span class="cov8" title="1">{
+        dta, ok := d.actions[reflect.TypeOf(request)]
+        if !ok </span><span class="cov8" title="1">{
+                return fmt.Errorf("unknown request type: %T", request)
+        }</span>
+
+        <span class="cov8" title="1">requestBytes, err := json.Marshal(request)
+        if err != nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("marshaling request: %w", err)
+        }</span>
+        <span class="cov8" title="1">requestBytesStr := string(requestBytes)
+
+        dataTransferRequest := ocpp16.DataTransferJson{
+                VendorId:  dta.VendorId,
+                MessageId: &amp;dta.MessageId,
+                Data:      &amp;requestBytesStr,
+        }
+
+        dataTransferBytes, err := json.Marshal(dataTransferRequest)
+        if err != nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("marshaling data transfer request: %w", err)
+        }</span>
+
+        <span class="cov8" title="1">msg := &amp;transport.Message{
+                MessageType:    transport.MessageTypeCall,
+                MessageId:      uuid.New().String(),
+                Action:         "DataTransfer",
+                RequestPayload: dataTransferBytes,
+        }
+
+        return d.e.Emit(ctx, transport.OcppVersion16, chargeStationId, msg)</span>
+}
+</pre>
+		
+		<pre class="file" id="file13" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+)
+
+type SecurityEventNotificationHandler struct{}
+
+func (s SecurityEventNotificationHandler) HandleCall(ctx context.Context, chargeStationId string, request ocpp.Request) (response ocpp.Response, err error) <span class="cov8" title="1">{
+        req := request.(*ocpp16.SecurityEventNotificationJson)
+
+        span := trace.SpanFromContext(ctx)
+
+        span.SetAttributes(attribute.String("security_event.timestamp", req.Timestamp), attribute.String("security_event.type", req.Type))
+        if req.TechInfo != nil </span><span class="cov0" title="0">{
+                span.SetAttributes(attribute.String("security_event.tech_info", *req.TechInfo))
+        }</span>
+
+        <span class="cov8" title="1">return &amp;ocpp16.SecurityEventNotificationResponseJson{}, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file14" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "math/rand"
+        "time"
+
+        "github.com/google/uuid"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "github.com/zynka-tech/zynka-csms/manager/store"
+        "golang.org/x/exp/slog"
+        "k8s.io/utils/clock"
+)
+
+type StartTransactionHandler struct {
+        Clock            clock.PassiveClock
+        TokenStore       store.TokenStore
+        TransactionStore store.TransactionStore
+}
+
+func (t StartTransactionHandler) HandleCall(ctx context.Context, chargeStationId string, request ocpp.Request) (ocpp.Response, error) <span class="cov8" title="1">{
+        req := request.(*types.StartTransactionJson)
+
+        slog.Info("starting transaction", slog.Any("request", req))
+
+        status := types.StartTransactionResponseJsonIdTagInfoStatusInvalid
+        tok, err := t.TokenStore.LookupToken(ctx, req.IdTag)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov8" title="1">if tok != nil &amp;&amp; tok.Valid </span><span class="cov8" title="1">{
+                status = types.StartTransactionResponseJsonIdTagInfoStatusAccepted
+        }</span>
+
+        <span class="cov8" title="1">var transactionId int
+        if status == types.StartTransactionResponseJsonIdTagInfoStatusAccepted </span><span class="cov8" title="1">{
+                //#nosec G404 - transaction id does not require secure random number generator
+                transactionId = int(rand.Int31())
+                contextTransactionBegin := types.MeterValuesJsonMeterValueElemSampledValueElemContextTransactionBegin
+                meterValueMeasurand := "MeterValue"
+                transactionUuid := ConvertToUUID(transactionId)
+                err = t.TransactionStore.CreateTransaction(ctx, chargeStationId, transactionUuid, req.IdTag, "ISO14443",
+                        []store.MeterValue{
+                                {
+                                        Timestamp: t.Clock.Now().Format(time.RFC3339),
+                                        SampledValues: []store.SampledValue{
+                                                {
+                                                        Context:   (*string)(&amp;contextTransactionBegin),
+                                                        Measurand: &amp;meterValueMeasurand,
+                                                        UnitOfMeasure: &amp;store.UnitOfMeasure{
+                                                                Unit:      string(types.MeterValuesJsonMeterValueElemSampledValueElemUnitWh),
+                                                                Multipler: 0,
+                                                        },
+                                                        Value: float64(req.MeterStart),
+                                                },
+                                        },
+                                },
+                        }, 0, false)
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, err
+                }</span>
+        }
+
+        <span class="cov8" title="1">response := &amp;types.StartTransactionResponseJson{
+                IdTagInfo: types.StartTransactionResponseJsonIdTagInfo{
+                        Status: status,
+                },
+        }
+        // Only include transactionId when status is Accepted (OCPP 1.6 spec requirement)
+        if status == types.StartTransactionResponseJsonIdTagInfoStatusAccepted </span><span class="cov8" title="1">{
+                response.TransactionId = &amp;transactionId
+        }</span>
+
+        <span class="cov8" title="1">return response, nil</span>
+}
+
+func ConvertToUUID(transactionId int) string <span class="cov8" title="1">{
+        uuidBytes := []byte{
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                0x00, 0x00, 0x00, 0x00,
+                (byte)(transactionId &gt;&gt; 24),
+                (byte)(transactionId &gt;&gt; 16),
+                (byte)(transactionId &gt;&gt; 8),
+                (byte)(transactionId),
+        }
+        return uuid.Must(uuid.FromBytes(uuidBytes)).String()
+}</span>
+</pre>
+		
+		<pre class="file" id="file15" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+)
+
+func StatusNotificationHandler(ctx context.Context, chargeStationId string, request ocpp.Request) (ocpp.Response, error) <span class="cov8" title="1">{
+        span := trace.SpanFromContext(ctx)
+
+        req := request.(*types.StatusNotificationJson)
+
+        span.SetAttributes(
+                attribute.Int("status.connector_id", req.ConnectorId),
+                attribute.String("status.connector_status", string(req.Status)))
+
+        return &amp;types.StatusNotificationResponseJson{}, nil
+}</span>
+</pre>
+		
+		<pre class="file" id="file16" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "errors"
+        "strconv"
+        "time"
+
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "github.com/zynka-tech/zynka-csms/manager/store"
+        "golang.org/x/exp/slog"
+        "k8s.io/utils/clock"
+)
+
+type StopTransactionHandler struct {
+        Clock            clock.PassiveClock
+        TokenStore       store.TokenStore
+        TransactionStore store.TransactionStore
+}
+
+func (s StopTransactionHandler) HandleCall(ctx context.Context, chargeStationId string, request ocpp.Request) (response ocpp.Response, err error) <span class="cov8" title="1">{
+        req := request.(*types.StopTransactionJson)
+
+        reason := "*unknown*"
+        if req.Reason != nil </span><span class="cov8" title="1">{
+                reason = string(*req.Reason)
+        }</span>
+        <span class="cov8" title="1">transactionId := ConvertToUUID(req.TransactionId)
+        slog.Info("stopping transaction", slog.String("transactionId", transactionId), slog.String("reason", reason))
+
+        var idTagInfo *types.StopTransactionResponseJsonIdTagInfo
+        if req.IdTag != nil </span><span class="cov8" title="1">{
+                status := types.StopTransactionResponseJsonIdTagInfoStatusInvalid
+                tok, err := s.TokenStore.LookupToken(ctx, *req.IdTag)
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, err
+                }</span>
+                <span class="cov8" title="1">if tok != nil &amp;&amp; tok.Valid </span><span class="cov8" title="1">{
+                        status = types.StopTransactionResponseJsonIdTagInfoStatusAccepted
+                }</span>
+                <span class="cov8" title="1">idTagInfo = &amp;types.StopTransactionResponseJsonIdTagInfo{
+                        Status: status,
+                }</span>
+        }
+
+        <span class="cov8" title="1">transaction, err := s.TransactionStore.FindTransaction(ctx, chargeStationId, transactionId)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov8" title="1">seqNo := -1
+        if transaction != nil </span><span class="cov8" title="1">{
+                seqNo = transaction.StartSeqNo + transaction.UpdatedSeqNoCount + 1
+        }</span>
+
+        <span class="cov8" title="1">var idToken, tokenType string
+        if req.IdTag != nil </span><span class="cov8" title="1">{
+                idToken = *req.IdTag
+                tokenType = "ISO14443"
+        }</span>
+
+        <span class="cov8" title="1">meterValues, err := convertMeterValues(req.TransactionData)
+        if err != nil </span><span class="cov8" title="1">{
+                return nil, err
+        }</span>
+
+        <span class="cov8" title="1">var previousMeterValues []store.MeterValue
+        if transaction != nil </span><span class="cov8" title="1">{
+                previousMeterValues = transaction.MeterValues
+        }</span>
+        <span class="cov8" title="1">meterValues = calculateTransactionEndOutletEnergy(s.Clock, meterValues, previousMeterValues, req.MeterStop)
+
+        err = s.TransactionStore.EndTransaction(ctx, chargeStationId, transactionId, idToken, tokenType, meterValues, seqNo)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov8" title="1">return &amp;types.StopTransactionResponseJson{
+                IdTagInfo: idTagInfo,
+        }, nil</span>
+}
+
+func calculateTransactionEndOutletEnergy(clock clock.PassiveClock, transactionValues []store.MeterValue, previousValues []store.MeterValue, meterStop int) []store.MeterValue <span class="cov8" title="1">{
+        if findOutletEnergyReading(transactionValues) </span><span class="cov0" title="0">{
+                return transactionValues
+        }</span>
+
+        <span class="cov8" title="1">if meterStart, ok := findTransactionBeginMeterValues(previousValues); ok </span><span class="cov8" title="1">{
+                energyUsed := meterStop - meterStart
+                transactionEndContext := "Transaction.End"
+                outletLocation := "Outlet"
+                energyRegisteredMeasurand := "Energy.Active.Import.Register"
+
+                transactionValues = append(transactionValues, store.MeterValue{
+                        SampledValues: []store.SampledValue{
+                                {
+                                        Context:   &amp;transactionEndContext,
+                                        Location:  &amp;outletLocation,
+                                        Measurand: &amp;energyRegisteredMeasurand,
+                                        Value:     float64(energyUsed),
+                                },
+                        },
+                        Timestamp: clock.Now().Format(time.RFC3339),
+                })
+        }</span>
+
+        <span class="cov8" title="1">return transactionValues</span>
+}
+
+func findOutletEnergyReading(values []store.MeterValue) bool <span class="cov8" title="1">{
+        for _, value := range values </span><span class="cov8" title="1">{
+                for _, sv := range value.SampledValues </span><span class="cov8" title="1">{
+                        if sv.Context != nil &amp;&amp; *sv.Context == "Transaction.End" &amp;&amp;
+                                sv.Measurand != nil &amp;&amp; *sv.Measurand == "Energy.Active.Import.Register" &amp;&amp;
+                                sv.Location != nil &amp;&amp; *sv.Location == "Outlet" </span><span class="cov0" title="0">{
+                                return true
+                        }</span>
+                }
+        }
+        <span class="cov8" title="1">return false</span>
+}
+
+func findTransactionBeginMeterValues(values []store.MeterValue) (int, bool) <span class="cov8" title="1">{
+        for _, value := range values </span><span class="cov8" title="1">{
+                for _, sv := range value.SampledValues </span><span class="cov8" title="1">{
+                        if sv.Context != nil &amp;&amp; *sv.Context == "Transaction.Begin" &amp;&amp;
+                                sv.Measurand != nil &amp;&amp; *sv.Measurand == "MeterValue" &amp;&amp;
+                                sv.Location != nil &amp;&amp; *sv.Location == "Outlet" </span><span class="cov8" title="1">{
+                                return int(sv.Value), true
+                        }</span>
+                }
+        }
+
+        <span class="cov8" title="1">return 0, false</span>
+}
+
+func convertMeterValues(meterValues []types.StopTransactionJsonTransactionDataElem) ([]store.MeterValue, error) <span class="cov8" title="1">{
+        var converted []store.MeterValue
+        for _, meterValue := range meterValues </span><span class="cov8" title="1">{
+                convertedMeterValue, err := convertMeterValue(meterValue)
+                if err != nil </span><span class="cov8" title="1">{
+                        return nil, err
+                }</span>
+                <span class="cov8" title="1">converted = append(converted, convertedMeterValue)</span>
+        }
+        <span class="cov8" title="1">return converted, nil</span>
+}
+
+func convertMeterValue(meterValue types.StopTransactionJsonTransactionDataElem) (store.MeterValue, error) <span class="cov8" title="1">{
+        sampledValues, err := convertSampledValues(meterValue.SampledValue)
+        if err != nil </span><span class="cov8" title="1">{
+                return store.MeterValue{}, err
+        }</span>
+        <span class="cov8" title="1">return store.MeterValue{
+                SampledValues: sampledValues,
+                Timestamp:     meterValue.Timestamp,
+        }, nil</span>
+}
+
+func convertSampledValues(sampledValues []types.StopTransactionJsonTransactionDataElemSampledValueElem) ([]store.SampledValue, error) <span class="cov8" title="1">{
+        var converted []store.SampledValue
+        for _, sampleValue := range sampledValues </span><span class="cov8" title="1">{
+                convertedSampleValue, err := convertSampleValue(sampleValue)
+                if err != nil </span><span class="cov8" title="1">{
+                        return nil, err
+                }</span>
+                <span class="cov8" title="1">converted = append(converted, convertedSampleValue)</span>
+        }
+        <span class="cov8" title="1">return converted, nil</span>
+}
+
+func convertSampleValue(sampleValue types.StopTransactionJsonTransactionDataElemSampledValueElem) (store.SampledValue, error) <span class="cov8" title="1">{
+        value, err := convertValue(sampleValue.Format, sampleValue.Value)
+        if err != nil </span><span class="cov8" title="1">{
+                return store.SampledValue{}, err
+        }</span>
+        <span class="cov8" title="1">return store.SampledValue{
+                Context:       (*string)(sampleValue.Context),
+                Location:      (*string)(sampleValue.Location),
+                Measurand:     (*string)(sampleValue.Measurand),
+                Phase:         (*string)(sampleValue.Phase),
+                UnitOfMeasure: convertUnitOfMeasure(sampleValue.Unit),
+                Value:         value,
+        }, nil</span>
+}
+
+func convertValue(format *types.StopTransactionJsonTransactionDataElemSampledValueElemFormat, value string) (float64, error) <span class="cov8" title="1">{
+        if format != nil &amp;&amp; *format != types.StopTransactionJsonTransactionDataElemSampledValueElemFormatRaw </span><span class="cov8" title="1">{
+                return 0, errors.New("conversion from signed data not implemented")
+        }</span>
+
+        <span class="cov8" title="1">return strconv.ParseFloat(value, 64)</span>
+}
+
+func convertUnitOfMeasure(unit *types.StopTransactionJsonTransactionDataElemSampledValueElemUnit) *store.UnitOfMeasure <span class="cov8" title="1">{
+        if unit == nil </span><span class="cov8" title="1">{
+                return nil
+        }</span>
+
+        <span class="cov0" title="0">return &amp;store.UnitOfMeasure{
+                Unit:      string(*unit),
+                Multipler: 0, // OCPP spec: Multiplier is 10^x exponent, 0 means no scaling (Wh)
+        }</span>
+}
+</pre>
+		
+		<pre class="file" id="file17" style="display: none">// SPDX-License-Identifier: Apache-2.0
+
+package ocpp16
+
+import (
+        "context"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp"
+        "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+        "go.opentelemetry.io/otel/attribute"
+        "go.opentelemetry.io/otel/trace"
+)
+
+type TriggerMessageResultHandler struct{}
+
+func (c TriggerMessageResultHandler) HandleCallResult(ctx context.Context, chargeStationId string, request ocpp.Request, response ocpp.Response, state any) error <span class="cov8" title="1">{
+        req := request.(*ocpp16.TriggerMessageJson)
+        resp := response.(*ocpp16.TriggerMessageResponseJson)
+
+        span := trace.SpanFromContext(ctx)
+
+        span.SetAttributes(
+                attribute.String("trigger.requested_message", string(req.RequestedMessage)),
+                attribute.String("trigger.status", string(resp.Status)))
+
+        if req.ConnectorId != nil </span><span class="cov8" title="1">{
+                span.SetAttributes(attribute.Int("trigger.connector_id", *req.ConnectorId))
+        }</span>
+
+        <span class="cov8" title="1">return nil</span>
+}
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

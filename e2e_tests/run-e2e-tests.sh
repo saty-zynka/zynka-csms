@@ -13,7 +13,7 @@ TEST_DIR="$CSMS_DIR/e2e_tests/test_driver"
 
 
 # Function to start Docker Compose
-start_docker_compose_for_maeve_csms() {
+start_docker_compose_for_zynka_csms() {
     cd "$CSMS_DIR"
     (cd config/certificates && make)
     chmod 755 $CSMS_DIR/config/certificates/csms.key
@@ -24,7 +24,7 @@ start_docker_compose_for_maeve_csms() {
         echo "Docker Compose started successfully"
     else
         echo "Failed to start Docker Compose"
-        stop_docker_compose_for_maeve_csms
+        stop_docker_compose_for_zynka_csms
         exit 1
     fi
 }
@@ -50,7 +50,7 @@ stop_docker_compose_for_everest() {
     cd "$EVEREST_DIR" && docker-compose down
 }
 
-stop_docker_compose_for_maeve_csms() {
+stop_docker_compose_for_zynka_csms() {
     cd "$CSMS_DIR" && docker-compose down
 }
 
@@ -84,11 +84,11 @@ run_tests() {
     fi
 
     stop_docker_compose_for_everest
-    stop_docker_compose_for_maeve_csms
+    stop_docker_compose_for_zynka_csms
 }
 
 # Main script execution
-start_docker_compose_for_maeve_csms
+start_docker_compose_for_zynka_csms
 check_health_endpoint
 start_docker_compose_for_everest
 run_tests

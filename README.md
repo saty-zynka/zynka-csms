@@ -1,9 +1,9 @@
 [![Manager](https://github.com/zynka-csms/workflows/Manager/badge.svg)](https://github.com/zynka-csms/actions/workflows/manager.yml)
 [![Gateway](https://github.com/zynka-csms/workflows/Gateway/badge.svg)](https://github.com/zynka-csms/actions/workflows/gateway.yml)
 
-# MaEVe
+# Zynka
 
-MaEVe is an EV charge station management system (CSMS). It began life as a simple proof of concept for
+Zynka is an EV charge station management system (CSMS). It began life as a simple proof of concept for
 implementing ISO-15118-2 Plug and Charge (PnC) functionality and remains a work in progress. It is hoped that over
 time it will become more complete, but already provides a useful basis for experimentation.
 
@@ -17,11 +17,11 @@ The system currently integrates with [Hubject](https://hubject.stoplight.io/) fo
 - [License](#license)
 
 ## Documentation
-MaEVe is implemented in Go 1.20. Learn more about MaEVe and its existing components through this [High-level design document](./docs/design.md).
+Zynka is implemented in Go 1.20. Learn more about Zynka and its existing components through this [High-level design document](./docs/design.md).
 
 ## Pre-requisites
 
-MaEVe runs in a set of Docker containers. This means you need to have `docker`, `docker-compose` and a docker daemon (e.g. docker desktop, `colima` or `rancher`) installed and running.
+Zynka runs in a set of Docker containers. This means you need to have `docker`, `docker-compose` and a docker daemon (e.g. docker desktop, `colima` or `rancher`) installed and running.
 Scripts that fetch various tokens use `jq`. Make sure you have it installed.
 
 ## Getting started
@@ -63,7 +63,7 @@ $ curl http://localhost:9410/api/v0/token -H 'content-type: application/json' -d
   "type": "RFID",
   "uid": "DEADBEEF",
   "contractId": "GBTWK012345678V",
-  "issuer": "Thoughtworks",
+  "issuer": "Zynka-tech",
   "valid": true,
   "cacheMode": "ALWAYS"
 }'
@@ -89,6 +89,6 @@ can be found in [./manager/config/README.md](./manager/config/README.md).
 Learn more about how to contribute on this project through [Contributing](./CONTRIBUTING.md)
 
 ## License
-MaEVe is [Apache licensed](./LICENSE).
+Zynka is [Apache licensed](./LICENSE).
 
 

@@ -147,13 +147,13 @@ func TestOPCPChargeStationCertificateProvider(t *testing.T) {
 	block, pemBytes := pem.Decode(pemBytes)
 	leafCert, err := x509.ParseCertificate(block.Bytes)
 	require.NoError(t, err)
-	assert.Equal(t, "CN=cs001,O=Thoughtworks,C=GB", leafCert.Subject.String())
+	assert.Equal(t, "CN=cs001,O=Zynka-tech,C=GB", leafCert.Subject.String())
 
 	require.NotNil(t, pemBytes)
 	block, pemBytes = pem.Decode(pemBytes)
 	intCert, err := x509.ParseCertificate(block.Bytes)
 	require.NoError(t, err)
-	assert.Equal(t, "CN=int,O=Thoughtworks", intCert.Subject.String())
+	assert.Equal(t, "CN=int,O=Zynka-tech", intCert.Subject.String())
 
 	require.NotNil(t, pemBytes)
 	block, _ = pem.Decode(pemBytes)
@@ -509,7 +509,7 @@ func createCertificateSigningRequest(t *testing.T) []byte {
 	csrTemplate := x509.CertificateRequest{
 		Subject: pkix.Name{
 			CommonName:   "cs001",
-			Organization: []string{"Thoughtworks"},
+			Organization: []string{"Zynka-tech"},
 			Country:      []string{"GB"},
 		},
 		SignatureAlgorithm: x509.ECDSAWithSHA256,

@@ -550,7 +550,7 @@ func createRootCACertificate(t *testing.T, commonName string) (*x509.Certificate
 		SerialNumber: caSerialNumber,
 		Subject: pkix.Name{
 			CommonName:   commonName,
-			Organization: []string{"Thoughtworks"},
+			Organization: []string{"Zynka-tech"},
 		},
 		KeyUsage:              x509.KeyUsageCertSign | x509.KeyUsageCRLSign,
 		BasicConstraintsValid: true,
@@ -587,7 +587,7 @@ func createIntermediateCACertificate(t *testing.T, commonName, ocspResponderUrl 
 		SerialNumber: caSerialNumber,
 		Subject: pkix.Name{
 			CommonName:   commonName,
-			Organization: []string{"Thoughtworks"},
+			Organization: []string{"Zynka-tech"},
 		},
 		KeyUsage:              x509.KeyUsageCertSign | x509.KeyUsageCRLSign,
 		BasicConstraintsValid: true,
@@ -627,7 +627,7 @@ func createIntermediateRSACACertificate(t *testing.T, commonName, ocspResponderU
 		SerialNumber: caSerialNumber,
 		Subject: pkix.Name{
 			CommonName:   commonName,
-			Organization: []string{"Thoughtworks"},
+			Organization: []string{"Zynka-tech"},
 		},
 		KeyUsage:              x509.KeyUsageCertSign | x509.KeyUsageCRLSign,
 		BasicConstraintsValid: true,
@@ -667,7 +667,7 @@ func createLeafCertificate(t *testing.T, commonName, ocspResponderUrl string, ca
 		SerialNumber: caSerialNumber,
 		Subject: pkix.Name{
 			CommonName:   commonName,
-			Organization: []string{"Thoughtworks"},
+			Organization: []string{"Zynka-tech"},
 		},
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
 		BasicConstraintsValid: true,
