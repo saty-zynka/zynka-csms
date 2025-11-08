@@ -7,8 +7,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/zynka-csms/manager/ocpp"
-	"github.com/zynka-csms/manager/transport"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	"github.com/zynka-tech/zynka-csms/manager/transport"
 	"golang.org/x/exp/slog"
 	"reflect"
 )

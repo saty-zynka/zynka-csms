@@ -5,7 +5,7 @@ package ocpp_test
 import (
 	"encoding/json"
 	"github.com/google/go-cmp/cmp"
-	"github.com/zynka-csms/gateway/ocpp"
+	"github.com/zynka-tech/zynka-csms/gateway/ocpp"
 	"testing"
 )
 

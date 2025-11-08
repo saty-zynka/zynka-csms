@@ -7,16 +7,16 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/zynka-csms/manager/handlers"
-	handlersHasToBe "github.com/zynka-csms/manager/handlers/has2be"
-	handlers201 "github.com/zynka-csms/manager/handlers/ocpp201"
-	"github.com/zynka-csms/manager/ocpp"
-	"github.com/zynka-csms/manager/ocpp/has2be"
-	"github.com/zynka-csms/manager/ocpp/ocpp16"
-	"github.com/zynka-csms/manager/ocpp/ocpp201"
-	"github.com/zynka-csms/manager/services"
-	"github.com/zynka-csms/manager/store"
-	"github.com/zynka-csms/manager/transport"
+	"github.com/zynka-tech/zynka-csms/manager/handlers"
+	handlersHasToBe "github.com/zynka-tech/zynka-csms/manager/handlers/has2be"
+	handlers201 "github.com/zynka-tech/zynka-csms/manager/handlers/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp/has2be"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/services"
+	"github.com/zynka-tech/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/transport"
 	"io/fs"
 	"k8s.io/utils/clock"
 	"reflect"
@@ -105,6 +105,18 @@ func NewRouter(emitter transport.Emitter,
 				RequestSchema:  "ocpp16/SecurityEventNotification.json",
 				ResponseSchema: "ocpp16/SecurityEventNotificationResponse.json",
 				Handler:        SecurityEventNotificationHandler{},
+			},
+			"FirmwareStatusNotification": {
+				NewRequest:     func() ocpp.Request { return new(ocpp16.FirmwareStatusNotificationJson) },
+				RequestSchema:  "ocpp16/FirmwareStatusNotification.json",
+				ResponseSchema: "ocpp16/FirmwareStatusNotificationResponse.json",
+				Handler:        FirmwareStatusNotificationHandler{},
+			},
+			"DiagnosticsStatusNotification": {
+				NewRequest:     func() ocpp.Request { return new(ocpp16.DiagnosticsStatusNotificationJson) },
+				RequestSchema:  "ocpp16/DiagnosticsStatusNotification.json",
+				ResponseSchema: "ocpp16/DiagnosticsStatusNotificationResponse.json",
+				Handler:        DiagnosticsStatusNotificationHandler{},
 			},
 			"DataTransfer": {
 				NewRequest:     func() ocpp.Request { return new(ocpp16.DataTransferJson) },
@@ -270,6 +282,27 @@ func NewRouter(emitter transport.Emitter,
 				ResponseSchema: "ocpp16/TriggerMessageResponse.json",
 				Handler:        TriggerMessageResultHandler{},
 			},
+			"RemoteStartTransaction": {
+				NewRequest:     func() ocpp.Request { return new(ocpp16.RemoteStartTransactionJson) },
+				NewResponse:    func() ocpp.Response { return new(ocpp16.RemoteStartTransactionResponseJson) },
+				RequestSchema:  "ocpp16/RemoteStartTransaction.json",
+				ResponseSchema: "ocpp16/RemoteStartTransactionResponse.json",
+				Handler:        RemoteStartTransactionResultHandler{},
+			},
+			"ReserveNow": {
+				NewRequest:     func() ocpp.Request { return new(ocpp16.ReserveNowJson) },
+				NewResponse:    func() ocpp.Response { return new(ocpp16.ReserveNowResponseJson) },
+				RequestSchema:  "ocpp16/ReserveNow.json",
+				ResponseSchema: "ocpp16/ReserveNowResponse.json",
+				Handler:        ReserveNowResultHandler{},
+			},
+			"CancelReservation": {
+				NewRequest:     func() ocpp.Request { return new(ocpp16.CancelReservationJson) },
+				NewResponse:    func() ocpp.Response { return new(ocpp16.CancelReservationResponseJson) },
+				RequestSchema:  "ocpp16/CancelReservation.json",
+				ResponseSchema: "ocpp16/CancelReservationResponse.json",
+				Handler:        CancelReservationResultHandler{},
+			},
 		},
 	}
 }
@@ -282,6 +315,8 @@ func NewCallMaker(e transport.Emitter) *handlers.OcppCallMaker {
 			reflect.TypeOf(&ocpp16.ChangeConfigurationJson{}):    "ChangeConfiguration",
 			reflect.TypeOf(&ocpp16.TriggerMessageJson{}):         "TriggerMessage",
 			reflect.TypeOf(&ocpp16.RemoteStartTransactionJson{}): "RemoteStartTransaction",
+			reflect.TypeOf(&ocpp16.ReserveNowJson{}):             "ReserveNow",
+			reflect.TypeOf(&ocpp16.CancelReservationJson{}):      "CancelReservation",
 		},
 	}
 }

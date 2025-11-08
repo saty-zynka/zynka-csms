@@ -3,7 +3,7 @@
 package main
 
 import (
-	"github.com/zynka-csms/manager/cmd"
+	"github.com/zynka-tech/zynka-csms/manager/cmd"
 )
 
 func main() {

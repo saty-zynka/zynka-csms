@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/zynka-csms/manager/ocpp"
-	types "github.com/zynka-csms/manager/ocpp/ocpp16"
-	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+	"github.com/zynka-tech/zynka-csms/manager/store"
 	"golang.org/x/exp/slog"
 	"k8s.io/utils/clock"
 )
@@ -38,7 +38,7 @@ func (s StopTransactionHandler) HandleCall(ctx context.Context, chargeStationId 
 		if err != nil {
 			return nil, err
 		}
-		if tok != nil {
+		if tok != nil && tok.Valid {
 			status = types.StopTransactionResponseJsonIdTagInfoStatusAccepted
 		}
 		idTagInfo = &types.StopTransactionResponseJsonIdTagInfo{
@@ -201,6 +201,6 @@ func convertUnitOfMeasure(unit *types.StopTransactionJsonTransactionDataElemSamp
 
 	return &store.UnitOfMeasure{
 		Unit:      string(*unit),
-		Multipler: 1,
+		Multipler: 0, // OCPP spec: Multiplier is 10^x exponent, 0 means no scaling (Wh)
 	}
 }

@@ -6,9 +6,9 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/zynka-csms/manager/handlers/ocpp201"
-	types "github.com/zynka-csms/manager/ocpp/ocpp201"
-	"github.com/zynka-csms/manager/testutil"
+	"github.com/zynka-tech/zynka-csms/manager/handlers/ocpp201"
+	types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/testutil"
 	"testing"
 )
 

@@ -4,10 +4,10 @@ package has2be
 
 import (
 	"context"
-	"github.com/zynka-csms/manager/handlers"
-	"github.com/zynka-csms/manager/ocpp"
-	typesHasToBe "github.com/zynka-csms/manager/ocpp/has2be"
-	types201 "github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/handlers"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	typesHasToBe "github.com/zynka-tech/zynka-csms/manager/ocpp/has2be"
+	types201 "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
 )
 
 type GetCertificateStatusHandler struct {

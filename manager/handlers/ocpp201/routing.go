@@ -3,12 +3,12 @@
 package ocpp201
 
 import (
-	"github.com/zynka-csms/manager/handlers"
-	"github.com/zynka-csms/manager/ocpp"
-	"github.com/zynka-csms/manager/ocpp/ocpp201"
-	"github.com/zynka-csms/manager/services"
-	"github.com/zynka-csms/manager/store"
-	"github.com/zynka-csms/manager/transport"
+	"github.com/zynka-tech/zynka-csms/manager/handlers"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/services"
+	"github.com/zynka-tech/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/transport"
 	"io/fs"
 	"k8s.io/utils/clock"
 	"reflect"

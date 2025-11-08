@@ -26,7 +26,8 @@ type StartTransactionResponseJson struct {
 	IdTagInfo StartTransactionResponseJsonIdTagInfo `json:"idTagInfo" yaml:"idTagInfo" mapstructure:"idTagInfo"`
 
 	// TransactionId corresponds to the JSON schema field "transactionId".
-	TransactionId int `json:"transactionId" yaml:"transactionId" mapstructure:"transactionId"`
+	// Optional: OCPP 1.6 spec requires it to be omitted when status is not Accepted
+	TransactionId *int `json:"transactionId,omitempty" yaml:"transactionId,omitempty" mapstructure:"transactionId,omitempty"`
 }
 
 func (*StartTransactionResponseJson) IsResponse() {}

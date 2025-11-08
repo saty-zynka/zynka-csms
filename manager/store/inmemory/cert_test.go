@@ -14,7 +14,7 @@ import (
 	"encoding/pem"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/zynka-csms/manager/store/inmemory"
+	"github.com/zynka-tech/zynka-csms/manager/store/inmemory"
 	"k8s.io/utils/clock"
 	"math/big"
 	"testing"

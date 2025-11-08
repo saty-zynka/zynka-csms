@@ -5,8 +5,8 @@ package ocpp201_test
 import (
 	"context"
 	"github.com/stretchr/testify/assert"
-	handlers "github.com/zynka-csms/manager/handlers/ocpp201"
-	types "github.com/zynka-csms/manager/ocpp/ocpp201"
+	handlers "github.com/zynka-tech/zynka-csms/manager/handlers/ocpp201"
+	types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
 	"testing"
 )
 

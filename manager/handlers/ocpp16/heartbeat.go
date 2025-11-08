@@ -6,8 +6,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/zynka-csms/manager/ocpp"
-	types "github.com/zynka-csms/manager/ocpp/ocpp16"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
 	"k8s.io/utils/clock"
 )
 

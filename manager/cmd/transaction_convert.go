@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/rodaine/table"
 	"github.com/spf13/cobra"
-	handlers16 "github.com/zynka-csms/manager/handlers/ocpp16"
+	handlers16 "github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16"
 	"strconv"
 )
 

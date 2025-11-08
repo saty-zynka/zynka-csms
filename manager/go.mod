@@ -1,4 +1,4 @@
-module github.com/zynka-csms/manager
+module github.com/zynka-tech/zynka-csms/manager
 
 go 1.21
 

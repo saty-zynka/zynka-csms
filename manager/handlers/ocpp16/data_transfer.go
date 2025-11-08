@@ -10,10 +10,10 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"io/fs"
 
-	"github.com/zynka-csms/manager/handlers"
-	"github.com/zynka-csms/manager/ocpp"
-	types "github.com/zynka-csms/manager/ocpp/ocpp16"
-	"github.com/zynka-csms/manager/schemas"
+	"github.com/zynka-tech/zynka-csms/manager/handlers"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+	"github.com/zynka-tech/zynka-csms/manager/schemas"
 )
 
 type DataTransferHandler struct {

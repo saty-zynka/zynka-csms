@@ -6,11 +6,11 @@ import (
 	"context"
 	"errors"
 	"github.com/stretchr/testify/require"
-	"github.com/zynka-csms/manager/handlers"
-	handlers201 "github.com/zynka-csms/manager/handlers/ocpp201"
-	"github.com/zynka-csms/manager/schemas"
-	"github.com/zynka-csms/manager/testutil"
-	"github.com/zynka-csms/manager/transport"
+	"github.com/zynka-tech/zynka-csms/manager/handlers"
+	handlers201 "github.com/zynka-tech/zynka-csms/manager/handlers/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/schemas"
+	"github.com/zynka-tech/zynka-csms/manager/testutil"
+	"github.com/zynka-tech/zynka-csms/manager/transport"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"k8s.io/utils/clock"
@@ -19,8 +19,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/zynka-csms/manager/ocpp"
-	"github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
 )
 
 var heartbeatMsg = transport.Message{

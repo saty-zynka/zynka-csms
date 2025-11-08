@@ -6,7 +6,7 @@ import (
 	clone "github.com/huandu/go-clone/generic"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/zynka-csms/manager/config"
+	"github.com/zynka-tech/zynka-csms/manager/config"
 	"testing"
 )
 

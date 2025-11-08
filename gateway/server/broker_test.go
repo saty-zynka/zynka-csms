@@ -6,7 +6,7 @@ import (
 	"context"
 	"github.com/eclipse/paho.golang/autopaho"
 	"github.com/eclipse/paho.golang/paho"
-	"github.com/zynka-csms/gateway/server"
+	"github.com/zynka-tech/zynka-csms/gateway/server"
 	"net/url"
 	"testing"
 	"time"
