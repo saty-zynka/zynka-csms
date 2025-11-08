@@ -136,4 +136,55 @@ config/certificates/*.pem
 config/certificates/*.key
 config/certificates/*.csr
 
+# Binary executables
+gateway/gateway
+manager/manager
+*/gateway
+*/manager
+
+# Go coverage HTML files
+coverage.html
+coverage_*.html
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+*.swp
+*.swo
+*~
+.#*
+
+# Editor backup files
+*.bak
+*.backup
+*.orig
+
+# E2E test certificates (generated)
+# Allow test fixtures and example certificates, but ignore generated ones
+e2e_tests/everest/config/certificates/cpo_sub_ca*.pem
+e2e_tests/everest/config/certificates/csms.pem
+e2e_tests/everest/config/certificates/mo_sub_ca*.pem
+e2e_tests/everest/config/certificates/*.key
+e2e_tests/everest/config/certificates/*.csr
+e2e_tests/everest/config/certificates/*.p7
+e2e_tests/everest/config/certificates/*.jks
+e2e_tests/everest/config/everest/certs/**/*.pem
+e2e_tests/everest/config/everest/certs/**/*.jks
+e2e_tests/everest/config/everest/certs/**/*.key
+# Note: HUBOpenProvCert*.pem, root-V2G-cert.pem, and trust.pem are tracked as examples
+
+# Docker
+.dockerignore.local
+docker-compose.override.yml
+
 # End of https://www.toptal.com/developers/gitignore/api/goland+all,visualstudiocode,go

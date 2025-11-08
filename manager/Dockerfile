@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.2
 
 # STAGE 1: build the executable
-FROM golang:1.20-alpine AS builder
+FROM golang:1.21-alpine AS builder
 
 RUN apk add --no-cache git openssh ca-certificates
 WORKDIR /src

@@ -3,11 +3,7 @@
 
 # Zynka
 
-Zynka is an EV charge station management system (CSMS). It began life as a simple proof of concept for
-implementing ISO-15118-2 Plug and Charge (PnC) functionality and remains a work in progress. It is hoped that over
-time it will become more complete, but already provides a useful basis for experimentation.
-
-The system currently integrates with [Hubject](https://hubject.stoplight.io/) for PnC functionality.
+Zynka is an EV charge station management system (CSMS). 
 
 ## Table of Contents
 - [Documentation](#documentation)

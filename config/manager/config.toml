@@ -5,6 +5,11 @@ addr = ":9410"
 type = "mqtt"
 mqtt.urls = ["mqtt://mqtt:1883"]
 
+[ocpp]
+heartbeat_interval = "10m"
+ocpp16_enabled = true
+ocpp201_enabled = true
+
 [ocpi]
 addr = ":9411"
 external_url = "http://manager:9411"
@@ -12,8 +17,7 @@ country_code = "GB"
 party_id = "TWK"
 
 [storage]
-type = "firestore"
-firestore.project_id = "*detect-project-id*"
+type = "in_memory"
 
 [contract_cert_validator]
 type = "ocsp"
