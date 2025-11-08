@@ -1,0 +1,12 @@
+# Docker Desktop override file
+# This file provides IPv4-only networking configuration for Docker Desktop compatibility
+# Usage: docker-compose -f docker-compose.yml -f docker-compose.docker-desktop.yml up
+
+networks:
+  default:
+    name: zynka-csms
+    enable_ipv6: false
+    # Remove IPv6 IPAM configuration for Docker Desktop compatibility
+    ipam:
+      driver: default
+

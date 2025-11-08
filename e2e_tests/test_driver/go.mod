@@ -8,4 +8,5 @@ require (
 	github.com/gorilla/websocket v1.5.0 // indirect
 	golang.org/x/net v0.23.0 // indirect
 	golang.org/x/sync v0.2.0 // indirect
+	nhooyr.io/websocket v1.8.17 // indirect
 )
