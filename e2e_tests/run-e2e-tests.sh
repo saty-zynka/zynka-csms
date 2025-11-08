@@ -97,13 +97,21 @@ register_charge_station() {
         echo "Warning: Failed to register charge station (may already be registered)"
     fi
     
-    # Also register cs002 for tests (to avoid conflicts with simulator using cs001)
+    # Also register cs002 and cs003 for tests (to avoid conflicts with simulator using cs001)
     echo "Registering charge station cs002 for tests..."
     curl -s -i http://localhost:9410/api/v0/cs/cs002 \
         -H 'content-type: application/json' \
         -d "{\"securityProfile\":$SECURITY_PROFILE,\"base64SHA256Password\":\"$PASSWORD_HASH\"}" > /dev/null
     if [ $? -eq 0 ]; then
         echo "Charge station cs002 registered successfully"
+    fi
+    
+    echo "Registering charge station cs003 for tests..."
+    curl -s -i http://localhost:9410/api/v0/cs/cs003 \
+        -H 'content-type: application/json' \
+        -d "{\"securityProfile\":$SECURITY_PROFILE,\"base64SHA256Password\":\"$PASSWORD_HASH\"}" > /dev/null
+    if [ $? -eq 0 ]; then
+        echo "Charge station cs003 registered successfully"
     fi
 }
 

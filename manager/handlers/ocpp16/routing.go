@@ -303,6 +303,52 @@ func NewRouter(emitter transport.Emitter,
 				ResponseSchema: "ocpp16/CancelReservationResponse.json",
 				Handler:        CancelReservationResultHandler{},
 			},
+			"ChangeAvailability": {
+				NewRequest:     func() ocpp.Request { return new(ocpp16.ChangeAvailabilityJson) },
+				NewResponse:    func() ocpp.Response { return new(ocpp16.ChangeAvailabilityResponseJson) },
+				RequestSchema:  "ocpp16/ChangeAvailability.json",
+				ResponseSchema: "ocpp16/ChangeAvailabilityResponse.json",
+				Handler:        ChangeAvailabilityResultHandler{},
+			},
+			"ClearCache": {
+				NewRequest:     func() ocpp.Request { return new(ocpp16.ClearCacheJson) },
+				NewResponse:    func() ocpp.Response { return new(ocpp16.ClearCacheResponseJson) },
+				RequestSchema:  "ocpp16/ClearCache.json",
+				ResponseSchema: "ocpp16/ClearCacheResponse.json",
+				Handler:        ClearCacheResultHandler{},
+			},
+			"GetConfiguration": {
+				NewRequest:     func() ocpp.Request { return new(ocpp16.GetConfigurationJson) },
+				NewResponse:    func() ocpp.Response { return new(ocpp16.GetConfigurationResponseJson) },
+				RequestSchema:  "ocpp16/GetConfiguration.json",
+				ResponseSchema: "ocpp16/GetConfigurationResponse.json",
+				Handler: GetConfigurationResultHandler{
+					SettingsStore: engine,
+				},
+			},
+			"RemoteStopTransaction": {
+				NewRequest:     func() ocpp.Request { return new(ocpp16.RemoteStopTransactionJson) },
+				NewResponse:    func() ocpp.Response { return new(ocpp16.RemoteStopTransactionResponseJson) },
+				RequestSchema:  "ocpp16/RemoteStopTransaction.json",
+				ResponseSchema: "ocpp16/RemoteStopTransactionResponse.json",
+				Handler:        RemoteStopTransactionResultHandler{},
+			},
+			"Reset": {
+				NewRequest:     func() ocpp.Request { return new(ocpp16.ResetJson) },
+				NewResponse:    func() ocpp.Response { return new(ocpp16.ResetResponseJson) },
+				RequestSchema:  "ocpp16/Reset.json",
+				ResponseSchema: "ocpp16/ResetResponse.json",
+				Handler: ResetResultHandler{
+					CallMaker: standardCallMaker,
+				},
+			},
+			"UnlockConnector": {
+				NewRequest:     func() ocpp.Request { return new(ocpp16.UnlockConnectorJson) },
+				NewResponse:    func() ocpp.Response { return new(ocpp16.UnlockConnectorResponseJson) },
+				RequestSchema:  "ocpp16/UnlockConnector.json",
+				ResponseSchema: "ocpp16/UnlockConnectorResponse.json",
+				Handler:        UnlockConnectorResultHandler{},
+			},
 		},
 	}
 }
@@ -317,6 +363,12 @@ func NewCallMaker(e transport.Emitter) *handlers.OcppCallMaker {
 			reflect.TypeOf(&ocpp16.RemoteStartTransactionJson{}): "RemoteStartTransaction",
 			reflect.TypeOf(&ocpp16.ReserveNowJson{}):             "ReserveNow",
 			reflect.TypeOf(&ocpp16.CancelReservationJson{}):      "CancelReservation",
+			reflect.TypeOf(&ocpp16.ChangeAvailabilityJson{}):     "ChangeAvailability",
+			reflect.TypeOf(&ocpp16.ClearCacheJson{}):              "ClearCache",
+			reflect.TypeOf(&ocpp16.GetConfigurationJson{}):       "GetConfiguration",
+			reflect.TypeOf(&ocpp16.RemoteStopTransactionJson{}):  "RemoteStopTransaction",
+			reflect.TypeOf(&ocpp16.ResetJson{}):                  "Reset",
+			reflect.TypeOf(&ocpp16.UnlockConnectorJson{}):        "UnlockConnector",
 		},
 	}
 }
