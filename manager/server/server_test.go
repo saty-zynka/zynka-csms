@@ -5,7 +5,7 @@ package server_test
 import (
 	"context"
 	"fmt"
-	"github.com/zynka-csms/manager/server"
+	"github.com/zynka-tech/zynka-csms/manager/server"
 	"net/http"
 	"testing"
 	"time"

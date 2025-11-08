@@ -10,10 +10,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	handlers "github.com/zynka-csms/manager/handlers/ocpp16"
-	types "github.com/zynka-csms/manager/ocpp/ocpp16"
-	"github.com/zynka-csms/manager/store"
-	"github.com/zynka-csms/manager/store/inmemory"
+	handlers "github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16"
+	types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+	"github.com/zynka-tech/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/store/inmemory"
 	clockTest "k8s.io/utils/clock/testing"
 )
 

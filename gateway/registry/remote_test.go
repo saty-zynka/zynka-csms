@@ -12,7 +12,7 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/zynka-csms/gateway/registry"
+	"github.com/zynka-tech/zynka-csms/gateway/registry"
 	"math/big"
 	"net/http"
 	"net/http/httptest"

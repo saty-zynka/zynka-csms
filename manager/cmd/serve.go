@@ -5,10 +5,10 @@ package cmd
 import (
 	"context"
 	"github.com/spf13/cobra"
-	"github.com/zynka-csms/manager/config"
-	"github.com/zynka-csms/manager/server"
-	"github.com/zynka-csms/manager/sync"
-	"github.com/zynka-csms/manager/transport"
+	"github.com/zynka-tech/zynka-csms/manager/config"
+	"github.com/zynka-tech/zynka-csms/manager/server"
+	"github.com/zynka-tech/zynka-csms/manager/sync"
+	"github.com/zynka-tech/zynka-csms/manager/transport"
 	"golang.org/x/exp/slog"
 	"k8s.io/utils/clock"
 )

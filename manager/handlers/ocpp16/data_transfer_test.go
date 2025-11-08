@@ -7,12 +7,12 @@ import (
 	"errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/zynka-csms/manager/handlers"
-	handlers16 "github.com/zynka-csms/manager/handlers/ocpp16"
-	"github.com/zynka-csms/manager/ocpp"
-	"github.com/zynka-csms/manager/ocpp/ocpp16"
-	types "github.com/zynka-csms/manager/ocpp/ocpp201"
-	"github.com/zynka-csms/manager/schemas"
+	"github.com/zynka-tech/zynka-csms/manager/handlers"
+	handlers16 "github.com/zynka-tech/zynka-csms/manager/handlers/ocpp16"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+	types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/schemas"
 	"testing"
 )
 

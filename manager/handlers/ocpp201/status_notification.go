@@ -7,8 +7,8 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/zynka-csms/manager/ocpp"
-	types "github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
 )
 
 func StatusNotificationHandler(ctx context.Context, chargeStationId string, request ocpp.Request) (ocpp.Response, error) {

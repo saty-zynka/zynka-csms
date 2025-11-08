@@ -6,7 +6,7 @@ import (
 	"container/ring"
 	"time"
 
-	"github.com/zynka-csms/gateway/ocpp"
+	"github.com/zynka-tech/zynka-csms/gateway/ocpp"
 	"golang.org/x/exp/slog"
 )
 

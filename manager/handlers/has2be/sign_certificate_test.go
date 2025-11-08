@@ -7,10 +7,10 @@ import (
 	"encoding/base64"
 	"encoding/pem"
 	"github.com/stretchr/testify/assert"
-	handlersHasToBe "github.com/zynka-csms/manager/handlers/has2be"
-	"github.com/zynka-csms/manager/ocpp"
-	typesHasToBe "github.com/zynka-csms/manager/ocpp/has2be"
-	types201 "github.com/zynka-csms/manager/ocpp/ocpp201"
+	handlersHasToBe "github.com/zynka-tech/zynka-csms/manager/handlers/has2be"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	typesHasToBe "github.com/zynka-tech/zynka-csms/manager/ocpp/has2be"
+	types201 "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
 	"testing"
 )
 

@@ -6,15 +6,15 @@ import (
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/zynka-csms/manager/config"
-	"github.com/zynka-csms/manager/store/inmemory"
+	"github.com/zynka-tech/zynka-csms/manager/config"
+	"github.com/zynka-tech/zynka-csms/manager/store/inmemory"
 	"io"
 	"k8s.io/utils/clock"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
-	"github.com/zynka-csms/manager/server"
+	"github.com/zynka-tech/zynka-csms/manager/server"
 )
 
 func TestHealthHandler(t *testing.T) {

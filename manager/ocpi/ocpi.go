@@ -9,7 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/google/uuid"
-	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/store"
 	"net/http"
 )
 

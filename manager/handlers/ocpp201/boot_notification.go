@@ -4,13 +4,13 @@ package ocpp201
 
 import (
 	"context"
-	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/store"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 	"time"
 
-	"github.com/zynka-csms/manager/ocpp"
-	types "github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
 	"k8s.io/utils/clock"
 )
 

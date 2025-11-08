@@ -8,7 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
 	"go.opentelemetry.io/otel/codes"
 	semconv "go.opentelemetry.io/otel/semconv/v1.17.0"
 	"go.opentelemetry.io/otel/trace"

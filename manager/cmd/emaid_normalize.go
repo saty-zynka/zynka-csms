@@ -5,7 +5,7 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"github.com/zynka-csms/manager/ocpp"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
 )
 
 // normalizeCmd represents the checkdigit command

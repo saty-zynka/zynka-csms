@@ -8,7 +8,7 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/zynka-csms/manager/services"
+	"github.com/zynka-tech/zynka-csms/manager/services"
 	"net/http"
 	"testing"
 )

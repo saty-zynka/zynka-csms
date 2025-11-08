@@ -7,9 +7,9 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/zynka-csms/manager/ocpp"
-	types "github.com/zynka-csms/manager/ocpp/ocpp16"
-	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp16"
+	"github.com/zynka-tech/zynka-csms/manager/store"
 )
 
 type AuthorizeHandler struct {

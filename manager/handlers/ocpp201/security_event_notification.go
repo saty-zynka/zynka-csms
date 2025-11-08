@@ -4,8 +4,8 @@ package ocpp201
 
 import (
 	"context"
-	"github.com/zynka-csms/manager/ocpp"
-	"github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 )

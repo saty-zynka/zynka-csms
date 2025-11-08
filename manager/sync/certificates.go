@@ -4,9 +4,9 @@ package sync
 
 import (
 	"context"
-	"github.com/zynka-csms/manager/handlers"
-	"github.com/zynka-csms/manager/ocpp/ocpp201"
-	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/handlers"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/store"
 	"golang.org/x/exp/slog"
 	"k8s.io/utils/clock"
 	"time"

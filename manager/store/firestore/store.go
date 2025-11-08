@@ -6,7 +6,7 @@ import (
 	"cloud.google.com/go/firestore"
 	"context"
 	"fmt"
-	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/store"
 	"k8s.io/utils/clock"
 )
 

@@ -4,7 +4,7 @@ package handlers
 
 import (
 	"context"
-	"github.com/zynka-csms/manager/ocpp"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
 )
 
 // CallHandler is the interface implemented by handlers that are designed to process an OCPP Call.

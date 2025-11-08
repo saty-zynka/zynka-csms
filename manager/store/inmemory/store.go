@@ -17,7 +17,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/store"
 )
 
 // Store is an in-memory implementation of the store.Engine interface. As everything

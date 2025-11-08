@@ -10,8 +10,8 @@ import (
 	"encoding/pem"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	types "github.com/zynka-csms/manager/ocpp/ocpp201"
-	"github.com/zynka-csms/manager/services"
+	types "github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/services"
 	"net/http"
 	"testing"
 )

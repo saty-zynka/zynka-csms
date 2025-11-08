@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/zynka-csms/manager/services"
-	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/services"
+	"github.com/zynka-tech/zynka-csms/manager/store"
 )
 
 func makePtr[T any](t T) *T {

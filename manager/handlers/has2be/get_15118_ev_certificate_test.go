@@ -6,10 +6,10 @@ import (
 	"context"
 	"errors"
 	"github.com/stretchr/testify/assert"
-	handlers201 "github.com/zynka-csms/manager/handlers/ocpp201"
-	typesHasToBe "github.com/zynka-csms/manager/ocpp/has2be"
-	"github.com/zynka-csms/manager/ocpp/ocpp201"
-	"github.com/zynka-csms/manager/services"
+	handlers201 "github.com/zynka-tech/zynka-csms/manager/handlers/ocpp201"
+	typesHasToBe "github.com/zynka-tech/zynka-csms/manager/ocpp/has2be"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/services"
 	"testing"
 )
 

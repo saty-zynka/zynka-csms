@@ -1,4 +1,4 @@
-module github.com/zynka-csms/gateway
+module github.com/zynka-tech/zynka-csms/gateway
 
 go 1.20
 

@@ -4,15 +4,15 @@ package api
 
 import (
 	"fmt"
-	handlers "github.com/zynka-csms/manager/handlers/ocpp201"
-	"github.com/zynka-csms/manager/ocpi"
+	handlers "github.com/zynka-tech/zynka-csms/manager/handlers/ocpp201"
+	"github.com/zynka-tech/zynka-csms/manager/ocpi"
 	"net/http"
 	"time"
 
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/go-chi/render"
-	"github.com/zynka-csms/manager/ocpp"
-	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-tech/zynka-csms/manager/ocpp"
+	"github.com/zynka-tech/zynka-csms/manager/store"
 	"k8s.io/utils/clock"
 )
 
