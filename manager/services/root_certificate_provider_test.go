@@ -9,7 +9,7 @@ import (
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/thoughtworks/maeve-csms/manager/services"
+	"github.com/zynka-csms/manager/services"
 	"k8s.io/utils/clock"
 	"net/http"
 	"net/http/httptest"

@@ -8,7 +8,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/thoughtworks/maeve-csms/manager/store"
+	"github.com/zynka-csms/manager/store"
 )
 
 type TariffService interface {

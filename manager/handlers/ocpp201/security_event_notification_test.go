@@ -6,8 +6,8 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp201"
-	"github.com/thoughtworks/maeve-csms/manager/testutil"
+	"github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-csms/manager/testutil"
 	"testing"
 	"time"
 )

@@ -3,7 +3,7 @@
 package main
 
 import (
-	"github.com/thoughtworks/maeve-csms/manager/cmd"
+	"github.com/zynka-csms/manager/cmd"
 )
 
 func main() {

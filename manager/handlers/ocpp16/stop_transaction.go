@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/thoughtworks/maeve-csms/manager/ocpp"
-	types "github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp16"
-	"github.com/thoughtworks/maeve-csms/manager/store"
+	"github.com/zynka-csms/manager/ocpp"
+	types "github.com/zynka-csms/manager/ocpp/ocpp16"
+	"github.com/zynka-csms/manager/store"
 	"golang.org/x/exp/slog"
 	"k8s.io/utils/clock"
 )

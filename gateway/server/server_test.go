@@ -5,7 +5,7 @@ package server_test
 import (
 	"context"
 	"fmt"
-	"github.com/thoughtworks/maeve-csms/gateway/server"
+	"github.com/zynka-csms/gateway/server"
 	"net/http"
 	"testing"
 	"time"

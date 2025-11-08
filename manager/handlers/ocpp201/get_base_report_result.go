@@ -4,8 +4,8 @@ package ocpp201
 
 import (
 	"context"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp"
-	types "github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-csms/manager/ocpp"
+	types "github.com/zynka-csms/manager/ocpp/ocpp201"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 )

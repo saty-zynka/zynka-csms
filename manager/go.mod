@@ -1,6 +1,8 @@
-module github.com/thoughtworks/maeve-csms/manager
+module github.com/zynka-csms/manager
 
-go 1.20
+go 1.21
+
+toolchain go1.24.6
 
 require (
 	cloud.google.com/go/firestore v1.14.0

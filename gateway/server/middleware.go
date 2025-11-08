@@ -13,7 +13,7 @@ import (
 
 	semconv "go.opentelemetry.io/otel/semconv/v1.17.0"
 
-	"github.com/thoughtworks/maeve-csms/gateway/registry"
+	"github.com/zynka-csms/gateway/registry"
 	"golang.org/x/exp/slog"
 )
 

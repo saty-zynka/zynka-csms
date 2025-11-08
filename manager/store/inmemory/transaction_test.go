@@ -11,8 +11,8 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/thoughtworks/maeve-csms/manager/store"
-	"github.com/thoughtworks/maeve-csms/manager/store/inmemory"
+	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-csms/manager/store/inmemory"
 )
 
 func makePtr[T any](t T) *T {

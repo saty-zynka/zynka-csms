@@ -11,10 +11,10 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-csms/manager/ocpp/ocpp201"
 
 	"github.com/stretchr/testify/assert"
-	"github.com/thoughtworks/maeve-csms/manager/services"
+	"github.com/zynka-csms/manager/services"
 )
 
 const dummyExiResponse = "dummy exi response"

@@ -179,7 +179,7 @@
             "NetworkConnectionProfiles": {
                 "variable_name": "NetworkConnectionProfiles",
                 "attributes": {
-                    "Actual": "[{\"configurationSlot\": 1, \"connectionData\": {\"messageTimeout\": 30, \"ocppCsmsUrl\": \"wss://cs.maeve-csms.co.uk/ws/dlpnew\", \"ocppInterface\": \"Wired0\", \"ocppTransport\": \"JSON\", \"ocppVersion\": \"OCPP20\", \"securityProfile\": 3}}]"
+                    "Actual": "[{\"configurationSlot\": 1, \"connectionData\": {\"messageTimeout\": 30, \"ocppCsmsUrl\": \"wss://cs.zynka-csms.co.uk/ws/dlpnew\", \"ocppInterface\": \"Wired0\", \"ocppTransport\": \"JSON\", \"ocppVersion\": \"OCPP20\", \"securityProfile\": 3}}]"
                 }
             },
             "ChargeBoxSerialNumber": {

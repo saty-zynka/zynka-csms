@@ -5,10 +5,10 @@ package ocpp16
 import (
 	"context"
 	"fmt"
-	"github.com/thoughtworks/maeve-csms/manager/handlers"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp16"
-	"github.com/thoughtworks/maeve-csms/manager/store"
+	"github.com/zynka-csms/manager/handlers"
+	"github.com/zynka-csms/manager/ocpp"
+	"github.com/zynka-csms/manager/ocpp/ocpp16"
+	"github.com/zynka-csms/manager/store"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 )

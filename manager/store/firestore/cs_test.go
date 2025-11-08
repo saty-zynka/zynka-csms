@@ -14,8 +14,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/thoughtworks/maeve-csms/manager/store"
-	"github.com/thoughtworks/maeve-csms/manager/store/firestore"
+	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-csms/manager/store/firestore"
 )
 
 func TestSetAndLookupChargeStationAuth(t *testing.T) {

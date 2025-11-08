@@ -3,7 +3,7 @@
 package server_test
 
 import (
-	"github.com/thoughtworks/maeve-csms/gateway/server"
+	"github.com/zynka-csms/gateway/server"
 	"net/http"
 	"net/http/httptest"
 	"testing"

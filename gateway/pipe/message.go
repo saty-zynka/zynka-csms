@@ -5,7 +5,7 @@ package pipe
 import (
 	"context"
 	"encoding/json"
-	"github.com/thoughtworks/maeve-csms/gateway/ocpp"
+	"github.com/zynka-csms/gateway/ocpp"
 )
 
 type GatewayMessage struct {

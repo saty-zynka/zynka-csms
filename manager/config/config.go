@@ -7,16 +7,16 @@ import (
 	"crypto/tls"
 	"fmt"
 	"github.com/subnova/slog-exporter/slogtrace"
-	"github.com/thoughtworks/maeve-csms/manager/handlers/ocpp16"
-	"github.com/thoughtworks/maeve-csms/manager/handlers/ocpp201"
-	"github.com/thoughtworks/maeve-csms/manager/ocpi"
-	"github.com/thoughtworks/maeve-csms/manager/schemas"
-	"github.com/thoughtworks/maeve-csms/manager/services"
-	"github.com/thoughtworks/maeve-csms/manager/store"
-	"github.com/thoughtworks/maeve-csms/manager/store/firestore"
-	"github.com/thoughtworks/maeve-csms/manager/store/inmemory"
-	"github.com/thoughtworks/maeve-csms/manager/transport"
-	mqtt2 "github.com/thoughtworks/maeve-csms/manager/transport/mqtt"
+	"github.com/zynka-csms/manager/handlers/ocpp16"
+	"github.com/zynka-csms/manager/handlers/ocpp201"
+	"github.com/zynka-csms/manager/ocpi"
+	"github.com/zynka-csms/manager/schemas"
+	"github.com/zynka-csms/manager/services"
+	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-csms/manager/store/firestore"
+	"github.com/zynka-csms/manager/store/inmemory"
+	"github.com/zynka-csms/manager/transport"
+	mqtt2 "github.com/zynka-csms/manager/transport/mqtt"
 	"go.opentelemetry.io/contrib/detectors/gcp"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel"
@@ -514,7 +514,7 @@ func getTracerProvider(ctx context.Context, collectorAddr string) (*trace.Tracer
 			resource.WithTelemetrySDK(),
 			resource.WithAttributes(
 				// the service name used to display traces in backends
-				semconv.ServiceName("maeve-csms-manager"),
+				semconv.ServiceName("zynka-csms-manager"),
 			),
 		)
 		if err != nil {

@@ -5,9 +5,9 @@ package ocpp201_test
 import (
 	"context"
 	"github.com/stretchr/testify/require"
-	handlers201 "github.com/thoughtworks/maeve-csms/manager/handlers/ocpp201"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp201"
-	"github.com/thoughtworks/maeve-csms/manager/store/inmemory"
+	handlers201 "github.com/zynka-csms/manager/handlers/ocpp201"
+	"github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-csms/manager/store/inmemory"
 	"k8s.io/utils/clock"
 	"testing"
 )
