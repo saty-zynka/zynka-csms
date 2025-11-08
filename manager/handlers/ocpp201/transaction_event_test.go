@@ -4,16 +4,16 @@ package ocpp201_test
 
 import (
 	"context"
-	"github.com/thoughtworks/maeve-csms/manager/store"
+	"github.com/zynka-csms/manager/store"
 	"k8s.io/utils/clock"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	handlers "github.com/thoughtworks/maeve-csms/manager/handlers/ocpp201"
-	types "github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp201"
-	"github.com/thoughtworks/maeve-csms/manager/services"
-	"github.com/thoughtworks/maeve-csms/manager/store/inmemory"
+	handlers "github.com/zynka-csms/manager/handlers/ocpp201"
+	types "github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-csms/manager/services"
+	"github.com/zynka-csms/manager/store/inmemory"
 )
 
 func TestTransactionEventHandlerWithStartedEvent(t *testing.T) {

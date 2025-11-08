@@ -17,7 +17,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/thoughtworks/maeve-csms/manager/store"
+	"github.com/zynka-csms/manager/store"
 )
 
 // Store is an in-memory implementation of the store.Engine interface. As everything

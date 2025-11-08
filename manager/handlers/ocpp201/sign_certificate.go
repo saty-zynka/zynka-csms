@@ -4,13 +4,13 @@ package ocpp201
 
 import (
 	"context"
-	"github.com/thoughtworks/maeve-csms/manager/store"
+	"github.com/zynka-csms/manager/store"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/thoughtworks/maeve-csms/manager/ocpp"
-	types "github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp201"
-	"github.com/thoughtworks/maeve-csms/manager/services"
+	"github.com/zynka-csms/manager/ocpp"
+	types "github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-csms/manager/services"
 	"golang.org/x/exp/slog"
 )
 

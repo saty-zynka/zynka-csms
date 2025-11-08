@@ -9,8 +9,8 @@ import (
 	"fmt"
 	"github.com/spf13/cobra"
 	"github.com/subnova/slog-exporter/slogtrace"
-	"github.com/thoughtworks/maeve-csms/gateway/registry"
-	"github.com/thoughtworks/maeve-csms/gateway/server"
+	"github.com/zynka-csms/gateway/registry"
+	"github.com/zynka-csms/gateway/server"
 	"go.opentelemetry.io/contrib/detectors/gcp"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
@@ -56,7 +56,7 @@ func initProvider(collectorAddr string) (func(context.Context) error, error) {
 			resource.WithTelemetrySDK(),
 			resource.WithAttributes(
 				// the service name used to display traces in backends
-				semconv.ServiceName("maeve-csms-gateway"),
+				semconv.ServiceName("zynka-csms-gateway"),
 			),
 		)
 		if err != nil {

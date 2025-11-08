@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/spf13/cobra"
-	"github.com/thoughtworks/maeve-csms/manager/services"
+	"github.com/zynka-csms/manager/services"
 	"net/http"
 	"os"
 	"strings"

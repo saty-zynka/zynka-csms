@@ -1,6 +1,6 @@
 networks:
   default:
-    name: maeve-csms
+    name: zynka-csms
     enable_ipv6: true
     ipam:
       config:

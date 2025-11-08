@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp"
+	"github.com/zynka-csms/manager/ocpp"
 	"math/rand"
 	"strings"
 	"testing"

@@ -4,10 +4,10 @@ package sync
 
 import (
 	"context"
-	"github.com/thoughtworks/maeve-csms/manager/handlers/ocpp16"
-	"github.com/thoughtworks/maeve-csms/manager/handlers/ocpp201"
-	"github.com/thoughtworks/maeve-csms/manager/store"
-	"github.com/thoughtworks/maeve-csms/manager/transport"
+	"github.com/zynka-csms/manager/handlers/ocpp16"
+	"github.com/zynka-csms/manager/handlers/ocpp201"
+	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-csms/manager/transport"
 	"go.opentelemetry.io/otel/trace"
 	"k8s.io/utils/clock"
 	"time"

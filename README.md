@@ -1,5 +1,5 @@
-[![Manager](https://github.com/thoughtworks/maeve-csms/workflows/Manager/badge.svg)](https://github.com/thoughtworks/maeve-csms/actions/workflows/manager.yml)
-[![Gateway](https://github.com/thoughtworks/maeve-csms/workflows/Gateway/badge.svg)](https://github.com/thoughtworks/maeve-csms/actions/workflows/gateway.yml)
+[![Manager](https://github.com/zynka-csms/workflows/Manager/badge.svg)](https://github.com/zynka-csms/actions/workflows/manager.yml)
+[![Gateway](https://github.com/zynka-csms/workflows/Gateway/badge.svg)](https://github.com/zynka-csms/actions/workflows/gateway.yml)
 
 # MaEVe
 
@@ -36,7 +36,7 @@ Charge stations can connect to the CSMS using:
 * `wss://localhost/ws/<cs-id>`
 
 If the charge station is also running in a Docker container then the charge
-station docker container can connect to the `maeve-csms` network and the
+station docker container can connect to the `zynka-csms` network and the
 charge station can connect to the CSMS using:
 * `ws://gateway:9310/ws/<cs-id>`
 * `wss://gateway:9311/ws/<cs-id>`

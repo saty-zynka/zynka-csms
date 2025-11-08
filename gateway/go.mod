@@ -1,4 +1,4 @@
-module github.com/thoughtworks/maeve-csms/gateway
+module github.com/zynka-csms/gateway
 
 go 1.20
 

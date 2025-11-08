@@ -6,7 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/thoughtworks/maeve-csms/manager/store"
+	"github.com/zynka-csms/manager/store"
 	"golang.org/x/exp/slog"
 	"google.golang.org/api/iterator"
 	"google.golang.org/grpc/codes"

@@ -5,9 +5,9 @@ package handlers_test
 import (
 	"context"
 	"github.com/stretchr/testify/assert"
-	"github.com/thoughtworks/maeve-csms/manager/handlers"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp201"
-	"github.com/thoughtworks/maeve-csms/manager/transport"
+	"github.com/zynka-csms/manager/handlers"
+	"github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-csms/manager/transport"
 	"reflect"
 	"regexp"
 	"testing"

@@ -14,9 +14,9 @@ import (
 	firestoreapi "cloud.google.com/go/firestore"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp"
-	"github.com/thoughtworks/maeve-csms/manager/store"
-	"github.com/thoughtworks/maeve-csms/manager/store/firestore"
+	"github.com/zynka-csms/manager/ocpp"
+	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-csms/manager/store/firestore"
 )
 
 func deleteTokens(t *testing.T, gcloudProject string) {

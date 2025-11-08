@@ -4,12 +4,12 @@ package server
 
 import (
 	"github.com/rs/cors"
-	"github.com/thoughtworks/maeve-csms/manager/adminui"
-	"github.com/thoughtworks/maeve-csms/manager/api"
-	"github.com/thoughtworks/maeve-csms/manager/config"
-	"github.com/thoughtworks/maeve-csms/manager/ocpi"
-	"github.com/thoughtworks/maeve-csms/manager/services"
-	"github.com/thoughtworks/maeve-csms/manager/store"
+	"github.com/zynka-csms/manager/adminui"
+	"github.com/zynka-csms/manager/api"
+	"github.com/zynka-csms/manager/config"
+	"github.com/zynka-csms/manager/ocpi"
+	"github.com/zynka-csms/manager/services"
+	"github.com/zynka-csms/manager/store"
 	"github.com/unrolled/secure"
 	"k8s.io/utils/clock"
 	"net/http"
@@ -19,7 +19,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/thoughtworks/maeve-csms/manager/templates"
+	"github.com/zynka-csms/manager/templates"
 )
 
 func NewApiHandler(settings config.ApiSettings, engine store.Engine, ocpi ocpi.Api, csCertProvider services.ChargeStationCertificateProvider) http.Handler {

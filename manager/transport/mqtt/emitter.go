@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"github.com/eclipse/paho.golang/autopaho"
 	"github.com/eclipse/paho.golang/paho"
-	"github.com/thoughtworks/maeve-csms/manager/transport"
+	"github.com/zynka-csms/manager/transport"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/propagation"

@@ -6,9 +6,9 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/thoughtworks/maeve-csms/manager/handlers/ocpp16"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp201"
-	"github.com/thoughtworks/maeve-csms/manager/transport"
+	"github.com/zynka-csms/manager/handlers/ocpp16"
+	"github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-csms/manager/transport"
 	"regexp"
 	"testing"
 )

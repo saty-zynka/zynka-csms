@@ -6,11 +6,11 @@ import (
 	"context"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	handlersHasToBe "github.com/thoughtworks/maeve-csms/manager/handlers/has2be"
-	handlers201 "github.com/thoughtworks/maeve-csms/manager/handlers/ocpp201"
-	typesHasToBe "github.com/thoughtworks/maeve-csms/manager/ocpp/has2be"
-	types201 "github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp201"
-	"github.com/thoughtworks/maeve-csms/manager/services"
+	handlersHasToBe "github.com/zynka-csms/manager/handlers/has2be"
+	handlers201 "github.com/zynka-csms/manager/handlers/ocpp201"
+	typesHasToBe "github.com/zynka-csms/manager/ocpp/has2be"
+	types201 "github.com/zynka-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-csms/manager/services"
 	"testing"
 )
 

@@ -11,7 +11,7 @@ import (
 	"encoding/hex"
 	"errors"
 	"fmt"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp201"
+	"github.com/zynka-csms/manager/ocpp/ocpp201"
 	"golang.org/x/crypto/ocsp"
 	"golang.org/x/exp/slog"
 	"io"

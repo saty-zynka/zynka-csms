@@ -8,10 +8,10 @@ import (
 	"fmt"
 	"io/fs"
 
-	"github.com/thoughtworks/maeve-csms/manager/handlers"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp"
-	types "github.com/thoughtworks/maeve-csms/manager/ocpp/ocpp16"
-	"github.com/thoughtworks/maeve-csms/manager/schemas"
+	"github.com/zynka-csms/manager/handlers"
+	"github.com/zynka-csms/manager/ocpp"
+	types "github.com/zynka-csms/manager/ocpp/ocpp16"
+	"github.com/zynka-csms/manager/schemas"
 	"golang.org/x/exp/slog"
 )
 

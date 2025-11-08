@@ -9,8 +9,8 @@ import (
 	"k8s.io/utils/clock"
 
 	"github.com/spf13/cobra"
-	"github.com/thoughtworks/maeve-csms/manager/store"
-	"github.com/thoughtworks/maeve-csms/manager/store/firestore"
+	"github.com/zynka-csms/manager/store"
+	"github.com/zynka-csms/manager/store/firestore"
 )
 
 var (

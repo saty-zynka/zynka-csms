@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/getkin/kin-openapi/openapi3filter"
-	"github.com/thoughtworks/maeve-csms/manager/store"
+	"github.com/zynka-csms/manager/store"
 	"net/http"
 	"regexp"
 )

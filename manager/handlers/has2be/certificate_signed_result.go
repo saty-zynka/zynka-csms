@@ -7,8 +7,8 @@ import (
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/thoughtworks/maeve-csms/manager/ocpp"
-	"github.com/thoughtworks/maeve-csms/manager/ocpp/has2be"
+	"github.com/zynka-csms/manager/ocpp"
+	"github.com/zynka-csms/manager/ocpp/has2be"
 )
 
 type CertificateSignedResultHandler struct{}
