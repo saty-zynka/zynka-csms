@@ -156,3 +156,55 @@ func TestStartTransactionWithInvalidRFID(t *testing.T) {
 	require.NoError(t, err)
 	assert.Empty(t, transactions, "No transaction should be created when status is Invalid")
 }
+
+func TestStartTransactionWithInvalidToken(t *testing.T) {
+	engine := inmemory.NewStore(clock.RealClock{})
+
+	err := engine.SetToken(context.Background(), &store.Token{
+		CountryCode: "GB",
+		PartyId:     "TWK",
+		Type:        "RFID",
+		Uid:         "MYRFIDTAG",
+		ContractId:  "GBTWK012345678V",
+		Issuer:      "Thoughtworks",
+		Valid:       false,
+		CacheMode:   "NEVER",
+		LastUpdated: time.Now().Format(time.RFC3339),
+	})
+	require.NoError(t, err)
+
+	transactionStore := inmemory.NewStore(clock.RealClock{})
+
+	now, err := time.Parse(time.RFC3339, "2023-06-15T15:05:00+01:00")
+	require.NoError(t, err)
+
+	handler := handlers.StartTransactionHandler{
+		Clock:            clockTest.NewFakePassiveClock(now),
+		TokenStore:       engine,
+		TransactionStore: transactionStore,
+	}
+
+	req := &types.StartTransactionJson{
+		ConnectorId:   1,
+		IdTag:         "MYRFIDTAG",
+		MeterStart:    100,
+		ReservationId: nil,
+		Timestamp:     now.Format(time.RFC3339),
+	}
+
+	got, err := handler.HandleCall(context.Background(), "cs001", req)
+	require.NoError(t, err)
+
+	want := &types.StartTransactionResponseJson{
+		IdTagInfo: types.StartTransactionResponseJsonIdTagInfo{
+			Status: types.StartTransactionResponseJsonIdTagInfoStatusInvalid,
+		},
+		TransactionId: nil,
+	}
+
+	assert.Equal(t, want, got)
+	// Verify no transaction was created
+	transactions, err := transactionStore.Transactions(context.Background())
+	require.NoError(t, err)
+	assert.Empty(t, transactions, "No transaction should be created when token is invalid")
+}

@@ -72,3 +72,38 @@ func TestAuthorizeWithUnknownRfidCard(t *testing.T) {
 
 	assert.Equal(t, want, got)
 }
+
+func TestAuthorizeWithInvalidToken(t *testing.T) {
+	engine := inmemory.NewStore(clock.RealClock{})
+	err := engine.SetToken(context.Background(), &store.Token{
+		CountryCode: "GB",
+		PartyId:     "TWK",
+		Type:        "RFID",
+		Uid:         "MYRFIDCARD",
+		ContractId:  "GBTWK012345678V",
+		Issuer:      "Thoughtworks",
+		Valid:       false,
+		CacheMode:   "NEVER",
+		LastUpdated: time.Now().Format(time.RFC3339),
+	})
+	require.NoError(t, err)
+
+	ah := handlers.AuthorizeHandler{
+		TokenStore: engine,
+	}
+
+	req := &types.AuthorizeJson{
+		IdTag: "MYRFIDCARD",
+	}
+
+	got, err := ah.HandleCall(context.Background(), "cs001", req)
+	assert.NoError(t, err)
+
+	want := &types.AuthorizeResponseJson{
+		IdTagInfo: types.AuthorizeResponseJsonIdTagInfo{
+			Status: types.AuthorizeResponseJsonIdTagInfoStatusInvalid,
+		},
+	}
+
+	assert.Equal(t, want, got)
+}
