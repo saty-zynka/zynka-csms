@@ -63,7 +63,8 @@ func (r Router) route(ctx context.Context, chargeStationId string, message *tran
 		err := schemas.Validate(message.RequestPayload, r.SchemaFS, route.RequestSchema)
 		if err != nil {
 			var validationErr *jsonschema.ValidationError
-			if errors.As(validationErr, &validationErr) {
+			var syntaxErr *json.SyntaxError
+			if errors.As(err, &validationErr) || errors.As(err, &syntaxErr) {
 				err = transport.NewError(transport.ErrorFormatViolation, err)
 			}
 			return fmt.Errorf("validating %s request: %w", message.Action, err)
@@ -71,6 +72,10 @@ func (r Router) route(ctx context.Context, chargeStationId string, message *tran
 		req := route.NewRequest()
 		err = json.Unmarshal(message.RequestPayload, &req)
 		if err != nil {
+			var syntaxErr *json.SyntaxError
+			if errors.As(err, &syntaxErr) {
+				err = transport.NewError(transport.ErrorFormatViolation, err)
+			}
 			return fmt.Errorf("unmarshalling %s request payload: %w", message.Action, err)
 		}
 		resp, err := route.Handler.HandleCall(ctx, chargeStationId, req)
@@ -111,7 +116,7 @@ func (r Router) route(ctx context.Context, chargeStationId string, message *tran
 		err = schemas.Validate(message.ResponsePayload, r.SchemaFS, route.ResponseSchema)
 		if err != nil {
 			var validationErr *jsonschema.ValidationError
-			if errors.As(validationErr, &validationErr) {
+			if errors.As(err, &validationErr) {
 				err = transport.NewError(transport.ErrorFormatViolation, err)
 			}
 			return fmt.Errorf("validating %s response: %w", message.Action, err)
