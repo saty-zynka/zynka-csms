@@ -1,11 +1,10 @@
 openapi: "3.0.0"
 info:
   version: "0.0.0"
-  title: "MaEVe CSMS"
-  description: "Internal API to interact with the MaEVe CSMS, external clients should use OCPI."
+  title: "Zynka CSMS"
+  description: "Internal API to interact with the Zynka CSMS, external clients should use OCPI."
   contact:
-    name: "MaEVe team"
-    email: "maeve-team@thoughtworks.com"
+    name: "Zynka team"
   license:
     name: "Apache 2.0"
 servers:

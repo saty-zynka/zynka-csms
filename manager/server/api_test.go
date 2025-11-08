@@ -84,5 +84,5 @@ func TestSwaggerHandler(t *testing.T) {
 	var jsonData map[string]interface{}
 	err = json.Unmarshal(b, &jsonData)
 	require.NoError(t, err)
-	require.Equal(t, jsonData["info"].(map[string]any)["title"], "MaEVe CSMS")
+	require.Equal(t, jsonData["info"].(map[string]any)["title"], "Zynka CSMS")
 }

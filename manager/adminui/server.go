@@ -203,7 +203,7 @@ func registerToken(ctx context.Context, engine store.Engine, uid string) error {
 		Type:        "OTHER",
 		Valid:       true,
 		ContractId:  contractId,
-		Issuer:      "Thoughtworks",
+		Issuer:      "Zynka-tech",
 		CacheMode:   "ALWAYS",
 	})
 }

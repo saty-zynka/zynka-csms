@@ -71,7 +71,7 @@ func TestGetToken(t *testing.T) {
 		Type:        "RFID",
 		Uid:         "DEADBEEF",
 		ContractId:  "GBTWKTWTW000018",
-		Issuer:      "Thoughtworks",
+		Issuer:      "Zynka-tech",
 		Valid:       true,
 		CacheMode:   "ALWAYS",
 	})
@@ -80,7 +80,7 @@ func TestGetToken(t *testing.T) {
 	want := &ocpi.Token{
 		ContractId:  "GBTWKTWTW000018",
 		CountryCode: "GB",
-		Issuer:      "Thoughtworks",
+		Issuer:      "Zynka-tech",
 		PartyId:     "TWK",
 		Type:        "RFID",
 		Uid:         "DEADBEEF",
@@ -103,7 +103,7 @@ func TestSetToken(t *testing.T) {
 	err := ocpiApi.SetToken(context.Background(), ocpi.Token{
 		ContractId:  "GBTWKTWTW000018",
 		CountryCode: "GB",
-		Issuer:      "Thoughtworks",
+		Issuer:      "Zynka-tech",
 		PartyId:     "TWK",
 		Type:        "RFID",
 		Uid:         "DEADBEEF",
@@ -118,7 +118,7 @@ func TestSetToken(t *testing.T) {
 		Type:        "RFID",
 		Uid:         "DEADBEEF",
 		ContractId:  "GBTWKTWTW000018",
-		Issuer:      "Thoughtworks",
+		Issuer:      "Zynka-tech",
 		Valid:       true,
 		CacheMode:   "ALWAYS",
 	}

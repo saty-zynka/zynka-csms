@@ -8,7 +8,7 @@ csms.key:
 
 csms.csr: csms.key
 	openssl req -new -nodes -key csms.key \
-		-subj "/CN=CSMS/O=Thoughtworks" \
+		-subj "/CN=CSMS/O=Zynka-tech" \
 		-addext "subjectAltName = DNS:localhost, DNS:gateway, DNS:lb" \
 		-out csms.csr
 

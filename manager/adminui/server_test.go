@@ -261,7 +261,7 @@ func generateCA(t *testing.T) (string, string) {
 		SerialNumber: caSerialNumber,
 		Subject: pkix.Name{
 			CommonName:   "ca",
-			Organization: []string{"Thoughtworks"},
+			Organization: []string{"Zynka-tech"},
 		},
 		KeyUsage:              x509.KeyUsageCertSign | x509.KeyUsageCRLSign,
 		BasicConstraintsValid: true,

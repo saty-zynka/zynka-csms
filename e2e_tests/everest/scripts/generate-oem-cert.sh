@@ -19,7 +19,7 @@ script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 openssl ecparam -name prime256v1 -genkey -noout -out "${script_dir}"/../config/certificates/"${PCID}".key
 openssl req -new -key "${script_dir}"/../config/certificates/"${PCID}".key \
-  -subj "/CN=${PCID}/O=Thoughtworks" \
+  -subj "/CN=${PCID}/O=Zynka-tech" \
   -out "${script_dir}"/../config/certificates/"${PCID}".csr \
   -outform DER \
   -sha256

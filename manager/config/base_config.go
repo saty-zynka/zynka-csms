@@ -33,7 +33,7 @@ var DefaultConfig = BaseConfig{
 		Host:    "localhost",
 		WsPort:  80,
 		WssPort: 443,
-		OrgName: "Thoughtworks",
+		OrgName: "Zynka-tech",
 	},
 	Transport: TransportConfig{
 		Type: "mqtt",

@@ -1,5 +1,5 @@
 ---
-title: MaEVe CSMS v0.0.0
+title: Zynka CSMS v0.0.0
 language_tabs:
   - shell: Shell
   - http: HTTP
@@ -19,17 +19,16 @@ headingLevel: 2
 
 <!-- Generator: Widdershins v4.0.1 -->
 
-<h1 id="zynka-csms">MaEVe CSMS v0.0.0</h1>
+<h1 id="zynka-csms">Zynka CSMS v0.0.0</h1>
 
 > Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.
 
-Internal API to interact with the MaEVe CSMS, external clients should use OCPI.
+Internal API to interact with the Zynka CSMS, external clients should use OCPI.
 
 Base URLs:
 
 * <a href="http://localhost:9410/api/v0">http://localhost:9410/api/v0</a>
 
-Email: <a href="mailto:maeve-team@thoughtworks.com">MaEVe team</a> 
  License: Apache 2.0
 
 <h1 id="zynka-csms-default">Default</h1>
