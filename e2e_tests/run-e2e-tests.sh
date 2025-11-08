@@ -75,18 +75,61 @@ start_docker_compose_for_zynka_csms() {
     fi
 }
 
+# Function to register charge station
+register_charge_station() {
+    CS_ID="${CS_ID:-cs001}"
+    SECURITY_PROFILE="${SECURITY_PROFILE:-0}"
+    PASSWORD="${CS_PASSWORD:-password}"
+    
+    # Calculate password hash (SHA-256 + base64)
+    PASSWORD_HASH=$(echo -n "$PASSWORD" | shasum -a 256 | awk '{print $1}' | xxd -r -p | base64)
+    
+    echo "Registering charge station $CS_ID..."
+    curl -s -i http://localhost:9410/api/v0/cs/$CS_ID \
+        -H 'content-type: application/json' \
+        -d "{\"securityProfile\":$SECURITY_PROFILE,\"base64SHA256Password\":\"$PASSWORD_HASH\"}" > /dev/null
+    
+    if [ $? -eq 0 ]; then
+        echo "Charge station $CS_ID registered successfully"
+        echo "Using password: $PASSWORD"
+        export CS_PASSWORD=$PASSWORD
+    else
+        echo "Warning: Failed to register charge station (may already be registered)"
+    fi
+    
+    # Also register cs002 for tests (to avoid conflicts with simulator using cs001)
+    echo "Registering charge station cs002 for tests..."
+    curl -s -i http://localhost:9410/api/v0/cs/cs002 \
+        -H 'content-type: application/json' \
+        -d "{\"securityProfile\":$SECURITY_PROFILE,\"base64SHA256Password\":\"$PASSWORD_HASH\"}" > /dev/null
+    if [ $? -eq 0 ]; then
+        echo "Charge station cs002 registered successfully"
+    fi
+}
+
 # Function to start Docker Compose for SolidStudio VCP
 start_docker_compose_for_vcp() {
         cd "$VCP_DIR"
-        docker compose up -d
+        
+        # Register charge station before starting simulator
+        register_charge_station
+        
+        echo "Starting SolidStudio VCP simulator..."
+        docker compose up -d --build
         if [ $? -ne 0 ]; then
             echo "Failed to start Docker Compose for SolidStudio VCP"
             stop_docker_compose_for_vcp
             exit 1
         fi
 
-        echo "Waiting for SolidStudio VCP to initialize..."
-        sleep 5
+        echo "Waiting for SolidStudio VCP to initialize and connect..."
+        sleep 10
+        
+        # Check if simulator container is running
+        if ! docker compose ps | grep -q "solidstudio-vcp.*Up"; then
+            echo "Warning: SolidStudio VCP container may not be running properly"
+            docker compose logs solidstudio-vcp
+        fi
 }
 
 # Function to stop Docker Compose for SolidStudio VCP

@@ -82,10 +82,16 @@ docker-compose up -d
 curl http://localhost:9410/health
 ```
 
-3. **Start SolidStudio VCP:**
+3. **Register charge station and start SolidStudio VCP:**
 ```shell
 cd e2e_tests
-docker compose up -d
+# Register charge station (Security Profile 0 = Basic Auth, no TLS)
+curl -i http://localhost:9410/api/v0/cs/cs001 \
+  -H 'content-type: application/json' \
+  -d '{"securityProfile":0}'
+
+# Start simulator (will use password from environment or default "password")
+docker compose up -d --build
 ```
 
 4. **Run tests:**

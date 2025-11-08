@@ -5,19 +5,22 @@ networks:
 
 services:
   solidstudio-vcp:
-    # Replace with actual SolidStudio VCP Docker image when available
-    # image: solidstudio/vcp:latest
-    image: node:18-alpine  # Placeholder - replace with actual VCP image
-    command: >
-      sh -c "
-        apk add --no-cache nodejs npm curl &&
-        echo 'SolidStudio VCP simulator placeholder - replace with actual VCP image'
-      "
+    build:
+      context: ../simulator
+      dockerfile: Dockerfile
     environment:
-      - CS_ID=cs001
-      - GATEWAY_URL=ws://gateway:9311/ws/cs001
-      - AUTH_TYPE=basic
-      - CS_USERNAME=cs001
-      - CS_PASSWORD=password
+      - WS_URL=ws://gateway:9310/ws
+      - CP_ID=cs001
+      - PASSWORD=${CS_PASSWORD:-password}
+      - ADMIN_PORT=9999
+      - OCPP_VERSION=16
+    ports:
+      - "9999:9999"  # Admin API port
     networks:
       - default
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:9999/execute', (r) => process.exit(r.statusCode === 404 ? 0 : 1)).on('error', () => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

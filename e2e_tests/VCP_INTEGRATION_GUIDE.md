@@ -52,7 +52,21 @@ curl -i http://localhost:9410/api/v0/token \
   }'
 ```
 
-### 3. Run VCP Integration Tests
+### 3. Start SolidStudio VCP Simulator
+
+```bash
+cd e2e_tests
+docker compose up -d --build
+```
+
+The simulator will:
+- Build the Docker image from `simulator/` directory
+- Connect to gateway at `ws://gateway:9311/ws/cs001`
+- Send BootNotification automatically
+- Send StatusNotification for connector 1 (Available)
+- Start admin API on port 9999
+
+### 4. Run VCP Integration Tests
 
 ```bash
 cd e2e_tests/test_driver
@@ -62,42 +76,40 @@ export CS_PASSWORD="password"  # Use the password from registration
 go test --tags=e2e -v -run TestVCPBasicConnection
 ```
 
-## Docker Compose Example for VCP
+Or run all tests:
+```bash
+go test --tags=e2e -v ./... -count=1
+```
 
-Create `e2e_tests/docker-compose.vcp.yml`:
+## Docker Compose Configuration
+
+The simulator is configured in `e2e_tests/docker-compose.yml`:
 
 ```yaml
-version: '3.8'
-
-networks:
-  default:
-    name: zynka-csms
-    external: true
-
 services:
-  vcp-simulator:
-    # Replace with actual Solidstudio VCP image when available
-    # image: solidstudio/vcp:latest
-    image: node:18-alpine  # Placeholder - replace with VCP image
-    command: >
-      sh -c "
-        apk add --no-cache nodejs npm &&
-        npm install -g @solidstudio/vcp &&
-        vcp start --cs-id cs001 --url ws://gateway:9311/ws/cs001 --auth basic --username cs001 --password password
-      "
+  solidstudio-vcp:
+    build:
+      context: ../simulator
+      dockerfile: Dockerfile
     environment:
-      - CS_ID=cs001
-      - GATEWAY_URL=ws://gateway:9311/ws/cs001
-      - AUTH_TYPE=basic
-      - CS_USERNAME=cs001
-      - CS_PASSWORD=password
-    depends_on:
-      - gateway
+      - WS_URL=ws://gateway:9311/ws
+      - CP_ID=cs001
+      - PASSWORD=${CS_PASSWORD:-password}
+      - ADMIN_PORT=9999
+      - OCPP_VERSION=16
+    ports:
+      - "9999:9999"  # Admin API port
     networks:
       - default
 ```
 
-**Note:** This is a placeholder configuration. Replace with actual VCP Docker image and commands once available.
+**Key Configuration:**
+- `WS_URL`: Base WebSocket URL (simulator appends `/CP_ID`)
+- `CP_ID`: Charge point identifier (must match CSMS registration)
+- `PASSWORD`: Basic Auth password (must match CSMS registration)
+- `OCPP_VERSION`: OCPP version (16, 201, or 21)
+
+**Note:** The simulator code is located in the `simulator/` directory and is built into a Docker image during `docker compose up`.
 
 ## Test Scenarios
 
@@ -142,10 +154,11 @@ Requires certificate configuration in VCP. See VCP documentation for details.
 
 ### 1. WebSocket Connection
 
-VCP connects to zynka-csms gateway at:
-- Endpoint: `/ws/{chargeStationId}`
-- Protocol: `ocpp1.6` or `ocpp2.0.1`
-- Auth: Basic Auth header
+The simulator connects to zynka-csms gateway at:
+- Base URL: `ws://gateway:9311/ws` (from `WS_URL` env var)
+- Full endpoint: `{WS_URL}/{CP_ID}` = `ws://gateway:9311/ws/cs001`
+- Protocol: `ocpp1.6` (or `ocpp2.0.1` based on `OCPP_VERSION`)
+- Auth: Basic Auth header with `CP_ID:PASSWORD`
 
 ### 2. OCPP Message Format
 
@@ -202,32 +215,82 @@ Standard OCPP JSON format:
 3. Verify password hash is correct
 4. Check Basic Auth header format
 
-### OCPP Messages Not Received
+### Simulator Container Issues
 
-1. Verify WebSocket connection is established
-2. Check subprotocol is set correctly (`ocpp1.6`)
-3. Verify message format is correct JSON array
-4. Check gateway logs for errors
+1. **Check simulator logs:**
+   ```bash
+   docker compose logs solidstudio-vcp
+   ```
+
+2. **Verify simulator is running:**
+   ```bash
+   docker compose ps
+   ```
+
+3. **Rebuild simulator image:**
+   ```bash
+   docker compose build --no-cache solidstudio-vcp
+   docker compose up -d
+   ```
+
+4. **Check WebSocket connection:**
+   - Look for "Connecting..." messages in logs
+   - Verify "Sending message ➡️" indicates successful connection
+   - Check for connection errors
+
+## Simulator Details
+
+### Building the Simulator
+
+The simulator Docker image is built from the `simulator/` directory:
+
+```bash
+cd simulator
+docker build -t solidstudio-vcp .
+```
+
+Or use docker-compose in `e2e_tests/`:
+```bash
+cd e2e_tests
+docker compose build solidstudio-vcp
+```
+
+### Simulator Features
+
+- **OCPP Versions**: Supports 1.6, 2.0.1, and 2.1
+- **Auto-connect**: Automatically connects and sends BootNotification on startup
+- **Admin API**: HTTP API on port 9999 for sending custom OCPP messages
+- **Environment-based**: Configured via environment variables
+- **TypeScript/Node.js**: Built with Node.js 18 and TypeScript
+
+### Admin API Usage
+
+The simulator exposes an admin API on port 9999 for sending custom OCPP messages:
+
+```bash
+curl -X POST http://localhost:9999/execute \
+  -H "Content-Type: application/json" \
+  -d '{
+    "action": "Authorize",
+    "payload": {"idTag": "DEADBEEF"}
+  }'
+```
 
 ## Next Steps
 
-1. **Get Solidstudio VCP Docker Image**
-   - Download from GitHub releases
-   - Or build from source
+1. **Run E2E Tests**
+   - Use `./run-e2e-tests.sh` for automated testing
+   - Or follow manual steps above
 
-2. **Update Docker Compose**
-   - Replace placeholder image
-   - Configure VCP-specific settings
+2. **Customize Simulator**
+   - Modify `simulator/index_16.ts` for OCPP 1.6 behavior
+   - Modify `simulator/index_201.ts` for OCPP 2.0.1 behavior
+   - Add custom scenarios in `simulator/admin/` directory
 
-3. **Refactor Test Driver**
-   - Replace MQTT-based tests
-   - Use VCP client library
-   - Maintain same test scenarios
-
-4. **Validate Integration**
-   - Run all E2E tests
-   - Compare with previous test results
-   - Verify consistency
+3. **Extend Tests**
+   - Add more test scenarios in `test_driver/vcp_integration_test.go`
+   - Use admin API for complex test flows
+   - Test different OCPP versions
 
 ## References
 
