@@ -26,7 +26,7 @@ func (a AuthorizeHandler) HandleCall(ctx context.Context, chargeStationId string
 	if err != nil {
 		return nil, err
 	}
-	if tok != nil {
+	if tok != nil && tok.Valid {
 		status = types.AuthorizeResponseJsonIdTagInfoStatusAccepted
 	}
 

@@ -26,48 +26,55 @@ func (t StartTransactionHandler) HandleCall(ctx context.Context, chargeStationId
 
 	slog.Info("starting transaction", slog.Any("request", req))
 
-	transactionId := -1
 	status := types.StartTransactionResponseJsonIdTagInfoStatusInvalid
 	tok, err := t.TokenStore.LookupToken(ctx, req.IdTag)
 	if err != nil {
 		return nil, err
 	}
-	if tok != nil {
+	if tok != nil && tok.Valid {
 		status = types.StartTransactionResponseJsonIdTagInfoStatusAccepted
+	}
+
+	var transactionId int
+	if status == types.StartTransactionResponseJsonIdTagInfoStatusAccepted {
 		//#nosec G404 - transaction id does not require secure random number generator
 		transactionId = int(rand.Int31())
-	}
-
-	contextTransactionBegin := types.MeterValuesJsonMeterValueElemSampledValueElemContextTransactionBegin
-	meterValueMeasurand := "MeterValue"
-	transactionUuid := ConvertToUUID(transactionId)
-	err = t.TransactionStore.CreateTransaction(ctx, chargeStationId, transactionUuid, req.IdTag, "ISO14443",
-		[]store.MeterValue{
-			{
-				Timestamp: t.Clock.Now().Format(time.RFC3339),
-				SampledValues: []store.SampledValue{
-					{
-						Context:   (*string)(&contextTransactionBegin),
-						Measurand: &meterValueMeasurand,
-						UnitOfMeasure: &store.UnitOfMeasure{
-							Unit:      string(types.MeterValuesJsonMeterValueElemSampledValueElemUnitWh),
-							Multipler: 1,
+		contextTransactionBegin := types.MeterValuesJsonMeterValueElemSampledValueElemContextTransactionBegin
+		meterValueMeasurand := "MeterValue"
+		transactionUuid := ConvertToUUID(transactionId)
+		err = t.TransactionStore.CreateTransaction(ctx, chargeStationId, transactionUuid, req.IdTag, "ISO14443",
+			[]store.MeterValue{
+				{
+					Timestamp: t.Clock.Now().Format(time.RFC3339),
+					SampledValues: []store.SampledValue{
+						{
+							Context:   (*string)(&contextTransactionBegin),
+							Measurand: &meterValueMeasurand,
+							UnitOfMeasure: &store.UnitOfMeasure{
+								Unit:      string(types.MeterValuesJsonMeterValueElemSampledValueElemUnitWh),
+								Multipler: 0,
+							},
+							Value: float64(req.MeterStart),
 						},
-						Value: float64(req.MeterStart),
 					},
 				},
-			},
-		}, 0, false)
-	if err != nil {
-		return nil, err
+			}, 0, false)
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	return &types.StartTransactionResponseJson{
+	response := &types.StartTransactionResponseJson{
 		IdTagInfo: types.StartTransactionResponseJsonIdTagInfo{
 			Status: status,
 		},
-		TransactionId: transactionId,
-	}, nil
+	}
+	// Only include transactionId when status is Accepted (OCPP 1.6 spec requirement)
+	if status == types.StartTransactionResponseJsonIdTagInfoStatusAccepted {
+		response.TransactionId = &transactionId
+	}
+
+	return response, nil
 }
 
 func ConvertToUUID(transactionId int) string {

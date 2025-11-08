@@ -61,14 +61,15 @@ func TestStartTransaction(t *testing.T) {
 		IdTagInfo: types.StartTransactionResponseJsonIdTagInfo{
 			Status: types.StartTransactionResponseJsonIdTagInfoStatusAccepted,
 		},
-		TransactionId: 0,
+		TransactionId: nil, // Will be set by handler
 	}
 
 	assert.Equal(t, want.IdTagInfo, got.IdTagInfo)
-	assert.Equal(t, 0, want.TransactionId>>31)
+	assert.NotNil(t, got.TransactionId, "TransactionId should be set when status is Accepted")
+	assert.Greater(t, *got.TransactionId, 0, "TransactionId should be positive")
 
 	require.NoError(t, err)
-	transactionId := handlers.ConvertToUUID(got.TransactionId)
+	transactionId := handlers.ConvertToUUID(*got.TransactionId)
 	found, err := transactionStore.FindTransaction(ctx, "cs001", transactionId)
 	require.NoError(t, err)
 
@@ -88,7 +89,7 @@ func TestStartTransaction(t *testing.T) {
 						Measurand: &expectedMeasurand,
 						UnitOfMeasure: &store.UnitOfMeasure{
 							Unit:      "Wh",
-							Multipler: 1,
+							Multipler: 0,
 						},
 						Value: 100,
 					},
@@ -146,8 +147,12 @@ func TestStartTransactionWithInvalidRFID(t *testing.T) {
 		IdTagInfo: types.StartTransactionResponseJsonIdTagInfo{
 			Status: types.StartTransactionResponseJsonIdTagInfoStatusInvalid,
 		},
-		TransactionId: -1,
+		TransactionId: nil, // Should be omitted when status is not Accepted
 	}
 
 	assert.Equal(t, want, got)
+	// Verify no transaction was created
+	transactions, err := transactionStore.Transactions(context.Background())
+	require.NoError(t, err)
+	assert.Empty(t, transactions, "No transaction should be created when status is Invalid")
 }
